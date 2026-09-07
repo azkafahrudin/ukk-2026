@@ -27,4 +27,15 @@ class KategoriController extends Controller
         Kategori::create($data);
         return redirect(route('kategori.index'))->with('success', 'Kategori berhasil ditambahkan.');
     }
+
+    public function edit(Request $request, $id_kategori)
+    {
+        $data = $request->all();
+
+        $kategori = kategori::FindOrFail($id_kategori);
+        $kategori->update($data);
+        return redirect(route('kategori.index'))->with('succes', 'kategori berhasil diubah.');
+        
+
+    }
 }
