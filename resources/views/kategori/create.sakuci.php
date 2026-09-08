@@ -3,7 +3,7 @@
 @section('title', config('app.name') . ' -- Kerangka PHP Ringan')
 
 @section('content')
-<h1></h1>Tambah Kategori</h1>
+<h1>Tambah Kategori</h1>
 <form action="{{ route('kategori.store') }}" method="POST" class="d-flex flex-column gap-2">
     @csrf
     
