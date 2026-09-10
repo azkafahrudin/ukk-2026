@@ -4,7 +4,7 @@
 
 @section('content')
 <h1>Daftar Kategori</h1>
-<a href="{{ route('kategori.create') }}" class="btn btn-danger mb-3">Tambah Kategori</a>
+<a href="{{ route('kategori.create') }}" class="btn btn-success mb-3">Tambah Alat</a>
 
 <table class = "table table-sm align-middle"> 
 <tr>
@@ -22,7 +22,7 @@
     <td> {{ $kategoris->kode_kategori }} </td>
     <td> {{ $kategoris->keterangan }} </td>
     <td>
-         <a href="{{ route('kategori.edit', ['kategori' => $kategoris->id_kategori]) }}" class="btn btn-primary btn-sm">Edit</a>
+         <a href="{{ route('kategori.edit', ['kategori' => $kategoris->id_kategori]) }}" class="btn btn-info btn-sm">Edit</a>
          <form action="{{ route('kategori.delete', ['id' => $kategoris->id_kategori]) }}" method="POST" style="display: inline-block;">
                             @csrf
                             @method('DELETE')
