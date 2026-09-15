@@ -76,6 +76,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 // @role:siswa:start
 Route::group(['prefix' => 'siswa', 'middleware' => 'siswa'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('siswa.dashboard');
+    Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
 });
 // @role:siswa:end
 // @generated-roles:end

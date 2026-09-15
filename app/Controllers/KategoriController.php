@@ -22,7 +22,7 @@ class KategoriController extends Controller
         $data = $request->validate([
             'nama_kategori' => 'required|min:3|max:100',
             'kode_kategori' => 'required|varchar|min:3|max:100',
-            'keterangan' => 'required|min:3|max:100',
+            'keterangan' => 'required|min:3|max:255',
         ]);
         Kategori::create($data);
         return redirect(route('kategori.index'))->with('success', 'Kategori berhasil ditambahkan.');
