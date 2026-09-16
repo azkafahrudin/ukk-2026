@@ -17,7 +17,15 @@
   <div class="card-body">
     <h5 class="card-title">KATEGORI</h5>
     <p class="card-text">disini untuk melihat kategori alat</p>
-    <a href="{{ route('kategori.index') }}" class="btn btn-success mb-3">KLIK</a>
+    <a href="{{ route('kategori.index') }}" class="btn btn-warning mb-3">KLIK</a>
+  </div>
+</div>
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">ALAT</h5>
+    <p class="card-text">disini untuk melihat kategori alat</p>
+    <a href="{{ route('alat.index') }}" class="btn btn-warning mb-3">KLIK</a>
   </div>
 </div>
 @endsection

@@ -7,6 +7,7 @@ use App\Controllers\Core\DocsController;
 use App\Controllers\Core\RoleController;
 use App\Controllers\Core\UserController;
 use App\Controllers\KategoriController;
+use App\Controllers\AlatController;
 use Sakuci\Route;
 
 /*
@@ -61,6 +62,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/kategori/{id_kategori}/edit', [kategoriController::class, 'edit'] )->name('kategori.edit');
     Route::put('/kategori/{id_kategori}', [kategoriController::class, 'update'] )->name('kategori.update');
     Route::delete('/kategori/{id_kategori}', [kategoriController::class, 'delete'] )->name('kategori.delete');
+
+    Route::get('/alat', [AlatController::class, 'index'])->name('alat.index');
+    Route::get('/alat/create', [alatController::class, 'create'])->name('alat.create');
+    Route::post('/alat/store', [alatController::class, 'store'])->name('alat.store');
+    Route::get('/alat/{id_alat}/edit', [alatController::class, 'edit'] )->name('alat.edit');
+    Route::put('/alat/{id_alat}', [alatController::class, 'update'] )->name('alat.update');
+    Route::delete('/alat/{id_alat}', [alatController::class, 'delete'] )->name('alat.delete');
 });
 
 /*
@@ -76,7 +84,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 // @role:siswa:start
 Route::group(['prefix' => 'siswa', 'middleware' => 'siswa'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('siswa.dashboard');
-    Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
 });
 // @role:siswa:end
 // @generated-roles:end
