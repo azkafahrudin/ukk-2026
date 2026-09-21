@@ -13,6 +13,8 @@
             <span class="text-warning">InventarisHub</span>
         </h1>
     </section>
+
+<div class="card-container">
     <div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">KATEGORI</h5>
@@ -27,5 +29,6 @@
     <p class="card-text">disini untuk melihat kategori alat</p>
     <a href="{{ route('alat.index') }}" class="btn btn-warning mb-3">KLIK</a>
   </div>
+</div>
 </div>
 @endsection
