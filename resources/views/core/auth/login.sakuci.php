@@ -9,7 +9,7 @@
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-4">
                     <h1 class="h4 mb-1">Masuk</h1>
-                    <h5-warning>Selamat datang di InventarisHub</h5>
+                    <h5-brand>Selamat datang di InventarisHub</h5>
                     <form method="POST" action="{{ route('login.attempt') }}">
                         @csrf
 
@@ -25,7 +25,7 @@
                             @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
-                        <button class="btn btn-warning w-100" type="submit">Login</button>
+                        <button class="btn btn-brand w-100" type="submit">Login</button>
                     </form>
 
                     @php

@@ -2,10 +2,11 @@
 | Lapisan tema di atas Bootstrap.
 | Bootstrap dimuat lebih dulu, file ini hanya menimpa seperlunya.
 */
+
 :root {
-    --warning: #c2410c;
-    --warning-dark: #9a3412;
-    --warning-subtle: #fff7ed;
+    --brand: #00bfff;
+    --brand-dark: #00bfff;
+    --brand-subtle: #fff7ed;
 }
 
 body {
@@ -13,13 +14,13 @@ body {
 }
 
 /* Logo kotak di navbar */
-.warning-mark {
+.brand-mark {
     display: grid;
     place-items: center;
     width: 30px;
     height: 30px;
     border-radius: 8px;
-    background: var(--warning);
+    background: var(--brand);
     color: #fff;
     font-size: 15px;
     font-weight: 700;
@@ -35,11 +36,11 @@ body {
 }
 
 .navbar-nav .nav-link:hover {
-    color: var(--warning);
+    color: var(--brand);
 }
 
 .navbar-nav .nav-link.active {
-    color: var(--warning);
+    color: var(--brand);
     font-weight: 700;
 }
 
@@ -51,7 +52,7 @@ body {
     bottom: 0;
     height: 2px;
     border-radius: 2px;
-    background: var(--warning);
+    background: var(--brand);
 }
 
 /* Logo navbar merangkap tombol toggle tema gelap/terang. Titik tengah
@@ -73,7 +74,7 @@ body {
 }
 
 .logo-toggle:focus-visible {
-    outline: 2px solid var(--warning);
+    outline: 2px solid var(--brand);
     outline-offset: 2px;
 }
 
@@ -87,36 +88,36 @@ body {
 }
 
 /* Tombol warna khas Sakuci */
-.btn-warning {
-    background-color: var(--warning);
-    border-color: var(--warning);
+.btn-brand {
+    background-color: var(--brand);
+    border-color: var(--brand);
     color: #fff;
 }
 
-.btn-warning:hover,
-.btn-warning:focus,
-.btn-warning:active {
-    background-color: var(--warning-dark);
-    border-color: var(--warning-dark);
+.btn-brand:hover,
+.btn-brand:focus,
+.btn-brand:active {
+    background-color: var(--brand-dark);
+    border-color: var(--brand-dark);
     color: #fff;
 }
 
-.btn-outline-warning {
-    border-color: var(--warning);
-    color: var(--warning);
+.btn-outline-brand {
+    border-color: var(--brand);
+    color: var(--brand);
 }
 
-.btn-outline-warning:hover {
-    background-color: var(--warning);
+.btn-outline-brand:hover {
+    background-color: var(--brand);
     color: #fff;
 }
 
-.text-warning   { color: var(--warning) !important; }
-.bg-warning-subtle { background-color: var(--warning-subtle) !important; }
+.text-brand   { color: var(--brand) !important; }
+.bg-brand-subtle { background-color: var(--brand-subtle) !important; }
 
-.badge-warning {
-    background-color: var(--warning-subtle);
-    color: var(--warning-dark);
+.badge-brand {
+    background-color: var(--brand-subtle);
+    color: var(--brand-dark);
     font-weight: 600;
 }
 
@@ -149,8 +150,8 @@ code.inline {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: var(--warning-subtle);
-    color: var(--warning-dark);
+    background: var(--brand-subtle);
+    color: var(--brand-dark);
     font-size: 13px;
     font-weight: 700;
 }
@@ -181,10 +182,10 @@ code.inline {
 /* Kotak warna untuk contoh grid & spacing di /docs */
 .demo-box {
     padding: .6rem .5rem;
-    background: var(--warning-subtle);
+    background: var(--brand-subtle);
     border: 1px solid #fdba8c;
     border-radius: 6px;
-    color: var(--warning-dark);
+    color: var(--brand-dark);
     font-size: .8rem;
     font-weight: 600;
     text-align: center;
@@ -201,7 +202,7 @@ code.inline {
     font-size: 72px;
     font-weight: 800;
     line-height: 1;
-    color: var(--warning);
+    color: var(--brand);
 }
 
 /* Varian tema gelap untuk komponen yang warnanya di-hardcode di atas */
@@ -236,8 +237,8 @@ code.inline {
     background: var(--bs-body-bg);
 }
 
-[data-bs-theme="dark"] .badge-warning,
-[data-bs-theme="dark"] .bg-warning-subtle,
+[data-bs-theme="dark"] .badge-brand,
+[data-bs-theme="dark"] .bg-brand-subtle,
 [data-bs-theme="dark"] .step-number {
     background-color: rgba(194, 65, 12, .18) !important;
     color: #fb923c;
@@ -254,4 +255,3 @@ code.inline {
     border-color: rgba(99, 102, 241, .4);
     color: #a5b4fc;
 }
-
