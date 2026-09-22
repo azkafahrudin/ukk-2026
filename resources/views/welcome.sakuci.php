@@ -49,15 +49,6 @@
                             Optimalisasi pengelolaan aset dan inventaris kantor atau lab dengan pelacakan real-time yang akurat.
                         </p>
                     </div>
-
-                    <div class="d-flex flex-wrap gap-3">
-                        <a href="#" class="btn btn-light text-primary fw-semibold px-4 py-2 rounded-pill shadow-sm">
-                            <i class="bi bi-plus-circle me-1"></i> Ajukan Pinjaman
-                        </a>
-                        <a href="#" class="btn btn-outline-light px-4 py-2 rounded-pill">
-                            <i class="bi bi-journal-text me-1"></i> Panduan
-                        </a>
-                    </div>
                 </div>
             </div>
 
@@ -105,7 +96,7 @@
                         <i class="bi bi-lightning-charge"></i>
                     </div>
                     <h5 class="fw-bold mb-2">Proses Kilat</h5>
-                    <p class="text-muted small mb-0">Tanpa birokrasi rumit, cukup pilih alat, ajukan tanggal, dan tunggu konfirmasi admin.</p>
+                    <p class="text-muted small mb-0">Tanpa birokrasi rumit, cukup pilih alat, ajukan tanggal, dan tunggu konfirmasi petugas.</p>
                 </div>
             </div>
 

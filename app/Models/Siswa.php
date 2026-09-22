@@ -8,5 +8,12 @@ class Siswa extends Model
 {
     protected static ?string $table = 'siswas';
 
-    protected array $fillable = [];
+    protected string $primaryKey = 'id_siswa';
+
+    protected array $fillable = [
+        'id_user',
+        'nama_siswa',
+        'nis',
+        'kelas'
+    ];
 }
