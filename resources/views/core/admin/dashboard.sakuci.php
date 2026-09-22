@@ -27,13 +27,13 @@
             <p class="text-muted small mb-3">Pintasan cepat menu pengelolaan sistem:</p>
             <ul class="nav nav-pills flex-column gap-2">
                 <li class="nav-item">
-                    <a href="{{ route('admin.roles.index') }}" class="nav-link text-body bg-light hover-bg">
-                        <i class="bi bi-shield-lock me-2"></i> Manage Role
+                    <a href="{{ route('kategori.index') }}" class="nav-link text-body bg-light hover-bg">
+                        <i class="bi bi-shield-lock me-2"></i> Kategori
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.users.index') }}" class="nav-link text-body bg-light hover-bg">
-                        <i class="bi bi-people me-2"></i> Manage User
+                    <a href="{{ route('alat.index') }}" class="nav-link text-body bg-light hover-bg">
+                        <i class="bi bi-people me-2"></i> Alat
                     </a>
                 </li>
                 <li class="nav-item">
