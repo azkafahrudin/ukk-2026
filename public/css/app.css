@@ -2,23 +2,6 @@
 | Lapisan tema di atas Bootstrap.
 | Bootstrap dimuat lebih dulu, file ini hanya menimpa seperlunya.
 */
-<style>
-    .bento-card {
-        background: #ffffff;
-        border: 1px solid rgba(0, 0, 0, 0.05);
-        border-radius: 1.5rem;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .bento-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 1rem 3rem rgba(0,0,0,.08)!important;
-    }
-    .bento-brand-bg {
-        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
-        color: white;
-    }
-</style>
-
 
 :root {
     --brand: #00bfff;
