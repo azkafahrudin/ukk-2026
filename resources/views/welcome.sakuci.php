@@ -5,112 +5,151 @@
 @section('content')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<!-- Custom CSS tambahan khusus untuk efek bento yang adaptif -->
-<style>
-    .bento-card {
-        border: 1px solid var(--bs-border-color-translucent);
-        border-radius: 1.5rem;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .bento-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 1rem 3rem rgba(0,0,0,.15)!important;
-    }
-    .bento-brand-bg {
-        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%) !important;
-        color: white !important;
-        border: none !important;
-    }
-</style>
-
-<!-- Hero Section: Bento Grid Style -->
-<section class="py-5 my-3">
+<!-- Hero & Dashboard Section -->
+<section class="py-4 my-2">
     <div class="container">
         
-        <!-- Baris Atas: Grid Utama -->
-        <div class="row g-4">
-            
-            <!-- Kotak Besar Kiri (Hero Utama) -->
-            <div class="col-lg-8">
-                <div class="card bento-card bento-brand-bg p-4 p-lg-5 h-100 d-flex flex-column justify-content-between position-relative overflow-hidden shadow-sm">
-                    <!-- Efek Dekoratif Lingkaran di Background -->
-                    <div class="position-absolute top-0 end-0 translate-middle-y opacity-10" style="font-size: 15rem; margin-right: -4rem;">
+        <!-- CARD BESAR: Pengenalan Web / Hero Utama -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-0 bg-primary text-white shadow-sm rounded-4 p-4 p-lg-5 position-relative overflow-hidden">
+                    
+                    <!-- Dekorasi Background Icon Transparan -->
+                    <div class="position-absolute top-0 end-0 translate-middle-y opacity-10 pe-none" style="font-size: 18rem; margin-right: -4rem;">
                         <i class="bi bi-box-seam"></i>
                     </div>
 
-                    <div class="mb-4">
-                        <span class="badge bg-white text-primary rounded-pill px-3 py-2 fw-semibold mb-3 shadow-sm">
-                            <i class="bi bi-layers-fill me-1"></i> InventarisHub v1.0.0
-                        </span>
-                        <h1 class="display-5 fw-bold text-white mb-3">
-                            Sistem Peminjaman Alat Cerdas & Terintegrasi
-                        </h1>
-                        <p class="text-white-50 lead mb-0" style="max-width: 550px;">
-                            Optimalisasi pengelolaan aset dan inventaris kantor atau lab dengan pelacakan real-time yang akurat.
-                        </p>
+                    <div class="row align-items-center position-relative z-1">
+                        <div class="col-lg-8">
+                            <span class="badge bg-white text-primary px-3 py-1.5 rounded-pill fw-semibold small mb-3 shadow-sm">
+                                <i class="bi bi-stars me-1"></i> InventarisHub v1.0.0
+                            </span>
+                            <h1 class="display-6 fw-bold mb-3 text-white">
+                                Sistem Peminjaman Alat Cerdas & Terintegrasi
+                            </h1>
+                            <p class="text-white-50 lead fs-6 mb-4" style="max-width: 600px;">
+                                Selamat datang di pusat pengelolaan aset kantor dan laboratorium. Optimalkan sirkulasi barang, pantau status secara real-time, dan ajukan peminjaman dengan lebih cepat dan transparan.
+                            </p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <a href="#" class="btn btn-light text-primary fw-semibold px-4 py-2 rounded-pill shadow-sm">
+                                    <i class="bi bi-plus-circle me-2"></i>Mulai Peminjaman
+                                </a>
+                                <a href="#" class="btn btn-outline-light fw-semibold px-4 py-2 rounded-pill">
+                                    Pelajari Fitur
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- BARIS KEDUA: Quick Stats / Statistik Ringkas -->
+        <div class="row g-4 mb-4">
+            
+            <!-- Statistik 1 -->
+            <div class="col-md-4">
+                <div class="card border bg-body shadow-sm rounded-4 p-4 h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="text-muted small fw-bold text-uppercase">Kondisi Aset</span>
+                            <div class="bg-success-subtle text-success rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                                <i class="bi bi-check-lg"></i>
+                            </div>
+                        </div>
+                        <h2 class="fw-bold text-body mb-1">98.5%</h2>
+                        <p class="text-muted small mb-3">Seluruh perangkat inventaris berfungsi optimal.</p>
+                    </div>
+                    <div class="progress" style="height: 6px; border-radius: 10px;">
+                        <div class="progress-bar bg-success" style="width: 98.5%"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Kotak Kanan Atas: Quick Stats -->
-            <div class="col-lg-4">
-                <div class="card bento-card p-4 h-100 d-flex flex-column justify-content-between shadow-sm bg-body">
+            <!-- Statistik 2 -->
+            <div class="col-md-4">
+                <div class="card border bg-body shadow-sm rounded-4 p-4 h-100 d-flex flex-column justify-content-between">
                     <div>
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h6 class="text-muted fw-bold mb-0">STATUS ASET</h6>
-                            <span class="badge bg-success-subtle text-success rounded-pill px-2 py-1">Live</span>
+                            <span class="text-muted small fw-bold text-uppercase">Kecepatan Respon</span>
+                            <div class="bg-primary-subtle text-primary rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                                <i class="bi bi-lightning-charge"></i>
+                            </div>
                         </div>
-                        <h2 class="fw-bold display-6 mb-1">98%</h2>
-                        <p class="text-muted small">Total alat dalam kondisi prima dan siap dipinjam.</p>
+                        <h2 class="fw-bold text-body mb-1">&lt; 10 Menit</h2>
+                        <p class="text-muted small mb-0">Rata-rata waktu persetujuan dari petugas.</p>
                     </div>
+                    <div class="mt-3 pt-2 border-top small text-muted">
+                        <i class="bi bi-shield-check text-primary me-1"></i> Sistem verifikasi otomatis aktif
+                    </div>
+                </div>
+            </div>
 
-                    <div class="p-3 rounded-4 mt-3 bg-body-secondary border">
-                        <div class="d-flex align-items-center justify-content-between fw-semibold small">
-                            <span><i class="bi bi-clock-history me-2 text-primary"></i> Rata-rata Approval</span>
-                            <span class="text-primary"> &lt; 10 Menit</span>
+            <!-- Statistik 3 -->
+            <div class="col-md-4">
+                <div class="card border bg-body shadow-sm rounded-4 p-4 h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="text-muted small fw-bold text-uppercase">Notifikasi Aktif</span>
+                            <div class="bg-warning-subtle text-warning rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                                <i class="bi bi-bell"></i>
+                            </div>
                         </div>
+                        <h2 class="fw-bold text-body mb-1">Aman</h2>
+                        <p class="text-muted small mb-0">Tidak ada jadwal pengembalian yang terlambat.</p>
+                    </div>
+                    <div class="mt-3 pt-2 border-top small text-muted">
+                        <i class="bi bi-clock-history me-1"></i> Pembaruan secara real-time
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <!-- Baris Bawah: Kotak-kotak Kecil Pendukung -->
-        <div class="row g-4 mt-1">
-            
-            <!-- Kotak Fitur 1 -->
+        <!-- BARIS KETIGA: 3 Fitur Pendukung -->
+        <div class="row g-4">
             <div class="col-md-4">
-                <div class="card bento-card p-4 h-100 shadow-sm bg-body">
-                    <div class="icon-box bg-primary-subtle text-primary rounded-4 d-inline-flex p-3 fs-4 mb-3">
-                        <i class="bi bi-shield-check"></i>
+                <div class="card border bg-body shadow-sm rounded-4 p-3 h-100">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="bg-primary-subtle text-primary rounded-3 p-3 fs-4">
+                            <i class="bi bi-shield-lock"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-body mb-1">Pencatatan Aman</h6>
+                            <p class="text-muted small mb-0">Verifikasi digital tervalidasi.</p>
+                        </div>
                     </div>
-                    <h5 class="fw-bold mb-2">Pencatatan Aman</h5>
-                    <p class="text-muted small mb-0">Setiap transaksi peminjaman tercatat rapi dengan sistem verifikasi digital yang valid.</p>
                 </div>
             </div>
 
-            <!-- Kotak Fitur 2 -->
             <div class="col-md-4">
-                <div class="card bento-card p-4 h-100 shadow-sm bg-body">
-                    <div class="icon-box bg-success-subtle text-success rounded-4 d-inline-flex p-3 fs-4 mb-3">
-                        <i class="bi bi-lightning-charge"></i>
+                <div class="card border bg-body shadow-sm rounded-4 p-3 h-100">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="bg-success-subtle text-success rounded-3 p-3 fs-4">
+                            <i class="bi bi-rocket-takeoff"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-body mb-1">Proses Kilat</h6>
+                            <p class="text-muted small mb-0">Tanpa birokrasi yang rumit.</p>
+                        </div>
                     </div>
-                    <h5 class="fw-bold mb-2">Proses Kilat</h5>
-                    <p class="text-muted small mb-0">Tanpa birokrasi rumit, cukup pilih alat, ajukan tanggal, dan tunggu konfirmasi petugas.</p>
                 </div>
             </div>
 
-            <!-- Kotak Fitur 3 -->
             <div class="col-md-4">
-                <div class="card bento-card p-4 h-100 shadow-sm bg-body">
-                    <div class="icon-box bg-warning-subtle text-warning rounded-4 d-inline-flex p-3 fs-4 mb-3">
-                        <i class="bi bi-bell-fill"></i>
+                <div class="card border bg-body shadow-sm rounded-4 p-3 h-100">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="bg-warning-subtle text-warning rounded-3 p-3 fs-4">
+                            <i class="bi bi-calendar-event"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-body mb-1">Pengingat Otomatis</h6>
+                            <p class="text-muted small mb-0">Notifikasi tenggat waktu tepat.</p>
+                        </div>
                     </div>
-                    <h5 class="fw-bold mb-2">Pengingat Otomatis</h5>
-                    <p class="text-muted small mb-0">Dapatkan notifikasi langsung saat batas waktu pengembalian alat hampir tiba.</p>
                 </div>
             </div>
-
         </div>
 
     </div>

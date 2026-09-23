@@ -41,9 +41,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('admin.database.export') }}" class="nav-link d-flex align-items-center gap-3 py-2 px-3 rounded-3">
+                <a href="{{ route('peminjaman.index') }}" class="nav-link d-flex align-items-center gap-3 py-2 px-3 rounded-3">
                     <i class="bi bi-cloud-arrow-down text-warning fs-5"></i> 
-                    <span class="fw-medium">Download Database</span>
+                    <span class="fw-medium">Data peminjaman</span>
                 </a>
             </li>
         </ul>
