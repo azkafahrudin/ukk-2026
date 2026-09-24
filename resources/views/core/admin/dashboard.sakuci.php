@@ -13,7 +13,6 @@
             data-bs-target="#adminSidebar" 
             aria-controls="adminSidebar">
         <i class="bi bi-grid-fill text-primary fs-5"></i>
-        <span>Navigasi Cepat</span>
     </button>
 </div>
 
@@ -46,9 +45,16 @@
                     <span class="fw-medium">Data peminjaman</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('pengembalian.index') }}" class="nav-link d-flex align-items-center gap-3 py-2 px-3 rounded-3">
+                    <i class="bi bi-cloud-arrow-down text-brand fs-5"></i> 
+                    <span class="fw-medium">Data Pengembalian</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
+
 
 <!-- Banner Selamat Datang Admin (Otomatis Menyesuaikan Dark/Light) -->
 <div class="card border-0 shadow-sm rounded-4 mb-4 border-start border-4 border-primary">
