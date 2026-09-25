@@ -4,7 +4,6 @@
 <div class="container">
     <h2>Edit Data Peminjaman</h2>
     
-    <!-- Perbaikan dari $datap menjadi $data -->
     <form action="{{ route('peminjaman.update', ['id_peminjaman' => $data->id_peminjaman]) }}" method="POST">
         @csrf
         
@@ -13,7 +12,7 @@
             <select name="id_user" id="id_user" class="form-control" required>
                 @foreach($users as $user)
                     <option value="{{ $user->id }}" {{ $data->id_user == $user->id ? 'selected' : '' }}>
-                        {{ $user->nama }}
+                        {{ $user->nama ?? $user->name ?? $user->username ?? 'User ID: ' . $user->id }}
                     </option>
                 @endforeach
             </select>
@@ -24,7 +23,7 @@
             <select name="id_alat" id="id_alat" class="form-control" required>
                 @foreach($alat as $item)
                     <option value="{{ $item->id }}" {{ $data->id_alat == $item->id ? 'selected' : '' }}>
-                        {{ $item->nama_alat }}
+                        {{ $item->nama_alat ?? $item->nama ?? 'Alat ID: ' . $item->id }}
                     </option>
                 @endforeach
             </select>
