@@ -9,7 +9,6 @@ use App\Controllers\Core\UserController;
 use App\Controllers\KategoriController;
 use App\Controllers\AlatController;
 use App\Controllers\PeminjamanController;
-use App\Controllers\PeminjamPortalController;
 use Sakuci\Route;
 
 /*
@@ -19,9 +18,9 @@ use Sakuci\Route;
 | Daftarkan seluruh route aplikasi di sini.
 |
 | Cara menulis action:
-|   [HomeController::class, 'index']   -> disarankan
-|   'HomeController@index'             -> namespace App\Controllers otomatis
-|   function () { ... }                -> closure
+|   [HomeController::class, 'index']    -> disarankan
+|   'HomeController@index'            -> namespace App\Controllers otomatis
+|   function () { ... }               -> closure
 */
 
 Route::get('/', function () {
@@ -101,29 +100,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 // @role:siswa:start
 Route::group(['prefix' => 'siswa', 'middleware' => 'siswa'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('siswa.dashboard');
+    
+    // Rute khusus siswa/peminjam mengajukan peminjaman alat
+    Route::get('/peminjaman', [PeminjamanController::class, 'indexPeminjam'])->name('peminjaman.indexPeminjam');
+    Route::get('/peminjaman/ajukan', [PeminjamanController::class, 'createPeminjam'])->name('peminjaman.createPeminjam');
+    Route::post('/peminjaman/ajukan', [PeminjamanController::class, 'storePeminjam'])->name('peminjaman.storePeminjam');
 });
 // @role:siswa:end
-// @role:pengguna:start
-Route::group(['prefix' => 'pengguna', 'middleware' => 'pengguna'], function () {
-});
-// @role:pengguna:end
 // @generated-roles:end
-
-/*
-|--------------------------------------------------------------------------
-| Contoh (hapus/ubah sesuai kebutuhan)
-|--------------------------------------------------------------------------
-|
-| use App\Controllers\BukuController;
-|
-| Route::get('/buku', [BukuController::class, 'index'])->name('buku.index');
-|
-| // Tujuh route CRUD sekaligus: index, create, store, show, edit, update, destroy
-| // Route::resource
-|
-| // Group dengan prefix dan middleware bersama
-| Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
-|     Route::get('/dashboard', [DashboardController::class, 'index']);
-| });
-*/
-
