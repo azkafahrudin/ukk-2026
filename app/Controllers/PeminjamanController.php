@@ -46,25 +46,36 @@ class PeminjamanController
     // Form edit peminjaman oleh admin
     public function edit(Request $request, $id)
     {
-        $peminjaman = Peminjaman::find($id);
-        if (!$peminjaman) {
+        $data = Peminjaman::where('id_peminjaman', $id)->first();
+        if (!$data) {
             return redirect(route('peminjaman.index'))->with('error', 'Data peminjaman tidak ditemukan.');
         }
 
         $alat = Alat::all();
         $users = User::all();
-        return view('peminjaman.edit', compact('peminjaman', 'alat', 'users'));
+        return view('peminjaman.edit', compact('data', 'alat', 'users'));
     }
 
     // Update data peminjaman oleh admin
     public function update(Request $request, $id)
     {
-        $peminjaman = Peminjaman::find($id);
+        $peminjaman = Peminjaman::where('id_peminjaman', $id)->first();
         if (!$peminjaman) {
             return redirect(route('peminjaman.index'))->with('error', 'Data peminjaman tidak ditemukan.');
         }
 
-        $peminjaman->update($request->all());
+        // Ambil semua request
+        $input = $request->all();
+
+        // Mencegah error SQL Incorrect integer value jika input kosong
+        if (empty($input['id_alat'])) {
+            $input['id_alat'] = $peminjaman->id_alat;
+        }
+        if (empty($input['id_user'])) {
+            $input['id_user'] = $peminjaman->id_user;
+        }
+
+        $peminjaman->update($input);
 
         return redirect(route('peminjaman.index'))->with('success', 'Data peminjaman berhasil diperbarui!');
     }
@@ -72,7 +83,7 @@ class PeminjamanController
     // Hapus data peminjaman oleh admin
     public function delete(Request $request, $id)
     {
-        $peminjaman = Peminjaman::find($id);
+        $peminjaman = Peminjaman::where('id_peminjaman', $id)->first();
         if ($peminjaman) {
             $peminjaman->delete();
         }
@@ -96,17 +107,17 @@ class PeminjamanController
 
         // Ambil data peminjaman HANYA milik user yang sedang login
         $datap = Peminjaman::where('id_user', $currentUser->id)
-                          ->orderBy('id_peminjaman', 'desc')
-                          ->paginate(5);
+                         ->orderBy('id_peminjaman', 'desc')
+                         ->paginate(5);
 
-        return view('peminjaman.index_peminjam', compact('datap'));
+        return view('peminjam.index_peminjam', compact('datap'));
     }
 
     // Form bagi siswa/peminjam untuk mengajukan peminjaman alat
     public function createPeminjam(Request $request)
     {
         $alat = Alat::all();
-        return view('peminjaman.create_peminjam', compact('alat'));
+        return view('peminjam.create_peminjam', compact('alat'));
     }
 
     // Proses simpan pengajuan peminjaman oleh siswa/peminjam
@@ -126,6 +137,6 @@ class PeminjamanController
 
         Peminjaman::create($data);
 
-        return redirect(route('peminjaman.indexPeminjam'))->with('success', 'Pengajuan peminjaman berhasil dikirim dan masuk ke daftar riwayat!');
+        return redirect(route('peminjam.indexPeminjam'))->with('success', 'Pengajuan peminjaman berhasil dikirim dan masuk ke daftar riwayat!');
     }
 }

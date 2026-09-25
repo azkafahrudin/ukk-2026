@@ -4,7 +4,8 @@
 <div class="container">
     <h2>Edit Data Peminjaman</h2>
     
-    <form action="{{ route('peminjaman.update', $data->id_peminjaman) }}" method="POST">
+    <!-- Perbaikan dari $datap menjadi $data -->
+    <form action="{{ route('peminjaman.update', ['id_peminjaman' => $data->id_peminjaman]) }}" method="POST">
         @csrf
         
         <div class="mb-3">
@@ -50,6 +51,7 @@
                 <option value="Pending" {{ $data->status == 'Pending' ? 'selected' : '' }}>Pending</option>
                 <option value="Disetujui" {{ $data->status == 'Disetujui' ? 'selected' : '' }}>Disetujui</option>
                 <option value="Ditolak" {{ $data->status == 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
+                <option value="Dipinjam" {{ $data->status == 'Dipinjam' ? 'selected' : '' }}>Dipinjam</option>
                 <option value="Dikembalikan" {{ $data->status == 'Dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
             </select>
         </div>

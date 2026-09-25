@@ -11,18 +11,10 @@
             <h2 class="fw-bold mb-1">Riwayat Peminjaman Alat</h2>
             <p class="text-muted small mb-0">Daftar pengajuan peminjaman alat yang telah Anda kirimkan.</p>
         </div>
-        <a href="{{ route('peminjaman.createPeminjam') }}" class="btn btn-primary shadow-sm">
+        <a href="{{ route('peminjam.createPeminjam') }}" class="btn btn-primary shadow-sm">
             <i class="bi bi-plus-lg me-1"></i> Ajukan Peminjaman Baru
         </a>
     </div>
-
-    <!-- Alert Notifikasi Sukses -->
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
 
     <!-- Card Pembungkus Tabel -->
     <div class="card border shadow-sm rounded-4 overflow-hidden">

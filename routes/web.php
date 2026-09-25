@@ -102,9 +102,9 @@ Route::group(['prefix' => 'siswa', 'middleware' => 'siswa'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('siswa.dashboard');
     
     // Rute khusus siswa/peminjam mengajukan peminjaman alat
-    Route::get('/peminjaman', [PeminjamanController::class, 'indexPeminjam'])->name('peminjaman.indexPeminjam');
-    Route::get('/peminjaman/ajukan', [PeminjamanController::class, 'createPeminjam'])->name('peminjaman.createPeminjam');
-    Route::post('/peminjaman/ajukan', [PeminjamanController::class, 'storePeminjam'])->name('peminjaman.storePeminjam');
+    Route::get('/peminjam', [PeminjamanController::class, 'indexPeminjam'])->name('peminjam.indexPeminjam');
+    Route::get('/peminjam/ajukan', [PeminjamanController::class, 'createPeminjam'])->name('peminjam.createPeminjam');
+    Route::post('/peminjam/ajukan', [PeminjamanController::class, 'storePeminjam'])->name('peminjam.storePeminjam');
 });
 // @role:siswa:end
 // @generated-roles:end
