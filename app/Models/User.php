@@ -9,7 +9,11 @@ class User extends Model
 {
     protected static ?string $table = 'users';
 
-    protected array $fillable = ['username', 'password', 'role'];
+    protected array $fillable = [
+        'username',
+        'password',
+        'role'
+    ];
     protected array $hidden = ['password'];
 
     public function hasRole(string ...$roles): bool

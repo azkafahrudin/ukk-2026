@@ -16,6 +16,7 @@
         </a>
     </div>
 
+
     <!-- Card Pembungkus Tabel -->
     <div class="card border shadow-sm rounded-4 overflow-hidden">
         <div class="card-body p-0">
@@ -40,7 +41,7 @@
                         <tr>
                             <td class="px-4 text-muted fw-semibold">{{ $no++ }}</td>
                             <td>
-                                <span class="fw-bold">{{ $peminjaman->user->nama ?? 'User ID: ' . $peminjaman->id_user }}</span>
+                                <span class="fw-bold">{{ $users->user->username ?? 'User ID: ' . $users->username }}</span>
                             </td>
                             <td>
                                 <span class="fw-semibold">{{ $peminjaman->alat->nama_alat ?? 'Alat ID: ' . $peminjaman->id_alat }}</span>
