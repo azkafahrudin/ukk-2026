@@ -41,7 +41,7 @@
                         <tr>
                             <td class="px-4 text-muted fw-semibold">{{ $no++ }}</td>
                             <td>
-                                <span class="fw-bold">{{ $users->user->username ?? 'User ID: ' . $users->username }}</span>
+                                <span class="fw-bold">{{ $peminjaman->user->username ?? 'User ID: ' . $peminjaman->username }}</span>
                             </td>
                             <td>
                                 <span class="fw-semibold">{{ $peminjaman->alat->nama_alat ?? 'Alat ID: ' . $peminjaman->id_alat }}</span>

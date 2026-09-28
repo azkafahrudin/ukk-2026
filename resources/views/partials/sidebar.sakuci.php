@@ -6,7 +6,7 @@
 </head>
     
     <!-- Bagian Atas: Logo, Tombol Toggle, & Theme -->
-    <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
+    <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom flex-shrink-0">
         <div class="d-flex align-items-center gap-2 overflow-hidden">
             <button id="themeToggle" type="button" class="logo-toggle btn btn-link p-0 text-decoration-none"
                     aria-label="Ganti tema terang/gelap" title="Ganti tema terang/gelap">
@@ -33,22 +33,65 @@
         $currentUser = \App\Models\User::current();
     @endphp
 
-    <!-- Bagian Menu Navigasi Utama (Vertikal) -->
-    <ul class="nav nav-pills flex-column mb-auto gap-2">
+    <!-- Bagian Menu Navigasi Utama (Ditambahkan overflow-y-auto agar bisa di-scroll jika terlalu panjang) -->
+    <ul class="nav nav-pills flex-column mb-auto gap-1 overflow-y-auto pe-1" style="max-height: calc(100vh - 180px);">
         <li class="nav-item">
             <a href="{{ route('home') }}" class="nav-link d-flex flex-column align-items-center text-center py-2 {{ is_route('home') ? 'active' : 'link-body-emphasis' }}">
                 <i class="bi bi-house-door fs-5 mb-1"></i> 
                 <span class="small">Beranda</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="{{ route('alat.index') }}" class="nav-link d-flex flex-column align-items-center text-center py-2 {{ is_route('alat.index') ? 'active' : 'link-body-emphasis' }}">
-                <i class="bi bi-journal-text fs-5 mb-1"></i> 
-                <span class="small">Data alat</span>
-            </a>
-        </li>
 
+        {{-- Menu-menu khusus user yang sudah login --}}
         @if ($currentUser)
+        @if ($currentUser->role === 'admin')
+            <li class="nav-item">
+                <a href="{{ route('alat.index') }}" class="nav-link d-flex flex-column align-items-center text-center py-2 {{ is_route('alat.index') ? 'active' : 'link-body-emphasis' }}">
+                    <i class="bi bi-journal-text fs-5 mb-1"></i> 
+                    <span class="small">Data alat</span>
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a href="{{ route('kategori.index') }}" class="nav-link d-flex flex-column align-items-center text-center py-2 {{ is_route('kategori.index') ? 'active' : 'link-body-emphasis' }}">
+                    <i class="bi bi-tags fs-5 mb-1"></i> 
+                    <span class="small">Data kategori</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('peminjaman.index') }}" class="nav-link d-flex flex-column align-items-center text-center py-2 {{ is_route('peminjaman.index') ? 'active' : 'link-body-emphasis' }}">
+                    <i class="bi bi-clipboard-check fs-5 mb-1"></i> 
+                    <span class="small">Data peminjaman</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('pengembalian.index') }}" class="nav-link d-flex flex-column align-items-center text-center py-2 {{ is_route('pengembalian.index') ? 'active' : 'link-body-emphasis' }}">
+                    <i class="bi bi-clipboard-check fs-5 mb-1"></i> 
+                    <span class="small">Data pengembalian</span>
+                </a>
+            </li>
+            @endif
+
+            {{-- Menu Khusus Peminjam --}}
+            @if ($currentUser->role === 'peminjam')
+                <li class="nav-item">
+                    <a href="{{ route('peminjam.indexPeminjam') }}" 
+                       class="nav-link d-flex flex-column align-items-center text-center py-2 {{ is_route('peminjam.indexPeminjam') ? 'active' : 'link-body-emphasis' }}">
+                        <i class="bi bi-plus-circle fs-5 mb-1"></i> 
+                        <span class="small">Ajukan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('peminjam.alat') }}" 
+                       class="nav-link d-flex flex-column align-items-center text-center py-2 {{ is_route('peminjam.alat') ? 'active' : 'link-body-emphasis' }}">
+                        <i class="bi bi-box-seam fs-5 mb-1"></i> 
+                        <span class="small">Daftar alat</span>
+                    </a>
+                </li>
+            @endif
+
             <li class="nav-item">
                 <a href="{{ $currentUser->role === 'admin' ? route('admin.dashboard') : route('dashboard') }}" 
                    class="nav-link d-flex flex-column align-items-center text-center py-2 {{ is_route('admin.dashboard', 'dashboard') ? 'active' : 'link-body-emphasis' }}">
@@ -59,10 +102,10 @@
         @endif
     </ul>
 
-    <hr>
+    <hr class="flex-shrink-0 my-2">
 
     <!-- Bagian Bawah: User & Logout -->
-    <div class="mt-auto">
+    <div class="mt-auto flex-shrink-0">
         @if ($currentUser)
             <div class="mb-2 px-1 small text-muted text-center text-truncate">
                 <strong class="text-body">{{ $currentUser->username }}</strong>

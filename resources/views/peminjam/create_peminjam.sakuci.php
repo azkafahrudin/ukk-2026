@@ -30,7 +30,7 @@
                             <select name="id_alat" id="id_alat" class="form-select" required>
                                 <option value="">-- Pilih Alat Inventaris --</option>
                                 @foreach($alat as $item)
-                                    <option value="{{ $item->id_alat }}">
+                                    <option value="{{ $item->id_alat }}" {{ (isset($selectedAlatId) && $selectedAlatId == $item->id_alat) ? 'selected' : '' }}>
                                         {{ $item->nama_alat ?? $item->nama }} 
                                         @if(isset($item->stok)) (Stok: {{ $item->stok }}) @endif
                                     </option>
