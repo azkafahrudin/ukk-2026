@@ -114,18 +114,10 @@ class PeminjamanController
     }
 
     // Form bagi siswa/peminjam untuk mengajukan peminjaman alat
-    public function createPeminjam(Request $request, $id_alat = null)
+    public function createPeminjam(Request $request)
     {
         $alat = Alat::all();
-        
-        // Menangkap id_alat dari query string (?id_alat=...) atau dari parameter rute
-        $selectedAlatId = $id_alat ?? ($_GET['id_alat'] ?? null);
-
-        // Kirim menggunakan array asosiatif agar 100% terbaca di view
-        return view('peminjam.create_peminjam', [
-            'alat' => $alat,
-            'selectedAlatId' => $selectedAlatId
-        ]);
+        return view('peminjam.create_peminjam', compact('alat'));
     }
 
     // Proses simpan pengajuan peminjaman oleh siswa/peminjam
