@@ -18,17 +18,29 @@
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
-<body class="d-flex flex-column min-vh-100 bg-body-tertiary">
+<body class="bg-body-tertiary">
 
-@include('partials.navbar')
+    {{-- Bungkus menggunakan d-flex agar sidebar di kiri dan konten di kanan --}}
+    <div class="d-flex min-vh-100">
 
-<main class="container flex-grow-1 py-4 py-lg-5">
-    @include('partials.flash')
+        {{-- Panggil Sidebar (yang tadinya navbar) --}}
+        @include('partials.sidebar')
 
-    @yield('content')
-</main>
+        {{-- Area Konten Utama di sebelah kanan --}}
+        <div class="flex-grow-1 d-flex flex-column">
+            
+            <main class="container-fluid flex-grow-1 p-4 p-lg-5">
+                @include('partials.flash')
 
-@include('partials.footer')
+                @yield('content')
+            </main>
+
+            {{-- Footer ditaruh di dalam area konten kanan bagian bawah --}}
+            @include('partials.footer')
+            
+        </div>
+
+    </div>
 
 <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/theme.js') }}"></script>

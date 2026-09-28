@@ -31,8 +31,8 @@ return [
     ],
 
     'middleware' => [
-        'pengguna' => App\Middleware\PenggunaOnly::class,
-        'siswa' => App\Middleware\SiswaOnly::class,
+        'petugas' => App\Middleware\PetugasOnly::class,
+        'peminjam' => App\Middleware\PeminjamOnly::class,
         'auth'  => App\Middleware\Authenticate::class,
         'guest' => App\Middleware\RedirectIfAuthenticated::class,
         'admin' => App\Middleware\AdminOnly::class,
