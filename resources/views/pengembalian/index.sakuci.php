@@ -20,7 +20,7 @@
             <h3 class="fw-bold mb-1 tracking-tight">Data Pengembalian</h3>
             <p class="text-body-secondary small mb-0">Kelola riwayat pengembalian barang dan denda keterlambatan.</p>
         </div>
-        <a href="{{ route('pengembalian.create') }}" class="btn btn-primary btn-sm px-3 py-2 rounded-3 shadow-sm d-inline-flex align-items-center gap-2 fw-medium">
+        <a href="{{ route('pengembalian.create') }}" class="btn btn-brand text-dark btn-sm px-3 py-2 rounded-3 shadow-sm d-inline-flex align-items-center gap-2 fw-medium">
             <i class="bi bi-plus-lg"></i>
             <span>Tambah Pengembalian</span>
         </a>

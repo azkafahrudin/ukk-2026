@@ -4,9 +4,9 @@
 */
 
 :root {
-    --brand: #00bfff;
-    --brand-dark: #00bfff;
-    --brand-subtle: #fff7ed;
+    --brand: hwb(50 1% 11%);
+    --brand-dark: hwb(54 0% 0%);
+    --brand-subtle: #0e0e0c;
 }
 
 body {

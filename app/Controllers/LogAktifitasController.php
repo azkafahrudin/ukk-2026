@@ -9,7 +9,7 @@ class LogAktifitasController
     public function index()
     {
         // Mengambil data log dari database
-        $datap = LogAktifitas::latest()->paginate(10);
+        $datap = LogAktifitas::latest()->paginate(100);
         
         // Memanggil view log
         return view('core.admin.log.index', compact('datap'));

@@ -5,17 +5,24 @@
 @section('content')
 <div class="container-fluid py-4 px-4">
     
+    <!-- Header Section -->
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
         <div>
-            <h3 class="fw-bold mb-1 tracking-tight">Daftar Peminjaman Alat</h3>
-            <p class="text-body-secondary small mb-0">Kelola data peminjaman dan pengembalian alat inventaris.</p>
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <div class="bg-warning-subtle text-warning p-2 rounded-3 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                    <i class="bi bi-arrow-up-right-circle-fill fs-5"></i>
+                </div>
+                <h3 class="fw-bold mb-0 tracking-tight">Daftar Peminjaman Alat</h3>
+            </div>
+            <p class="text-body-secondary small mb-0">Kelola data peminjaman dan pengembalian alat inventaris sekolah dengan mudah.</p>
         </div>
-        <a href="{{ route('peminjaman.create') }}" class="btn btn-primary btn-sm px-3 py-2 rounded-3 shadow-sm d-inline-flex align-items-center gap-2">
+        <a href="{{ route('peminjaman.create') }}" class="btn btn-warning text-dark fw-semibold px-4 py-2.5 rounded-3 shadow-sm d-inline-flex align-items-center gap-2 transition-all">
             <i class="bi bi-plus-lg"></i>
-            <span class="fw-medium">Tambah Peminjaman Baru</span>
+            <span>Tambah Peminjaman Baru</span>
         </a>
     </div>
 
+    <!-- Table Card Section -->
     <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
         <div class="card-body p-0">
             <div class="table-responsive">
@@ -37,12 +44,12 @@
                         @php $no = 1; @endphp
                         @forelse ($datap as $peminjaman)
                         @php
-                            // Ambil data user/peminjam dengan mencakup semua kemungkinan nama kolom (name, nama, username, email)
+                            // Ambil data user/peminjam dengan mencakup semua kemungkinan nama kolom
                             $userIdVal = $peminjaman->id_user ?? $peminjaman->user_id ?? null;
                             $userObj = $peminjaman->user ?? ($userIdVal ? \App\Models\User::find($userIdVal) : null);
                             $namaUserFinal = $userObj->name ?? $userObj->nama ?? $userObj->username ?? $userObj->email ?? ($userIdVal ? 'User #' . $userIdVal : 'Tanpa Nama');
 
-                            // Ambil data alat & ikon kotak sudah dihapus
+                            // Ambil data alat
                             $alatIdVal = $peminjaman->id_alat ?? $peminjaman->alat_id ?? null;
                             $alatObj = $peminjaman->alat ?? ($alatIdVal ? \App\Models\Alat::find($alatIdVal) : null);
                             $namaAlatFinal = $alatObj->nama_alat ?? $alatObj->nama ?? $alatObj->name ?? ($alatIdVal ? 'Alat #' . $alatIdVal : 'Alat Tidak Diketahui');
@@ -50,21 +57,26 @@
                         <tr>
                             <td class="px-4 text-center text-body-secondary fw-medium fs-7">{{ $no++ }}</td>
                             <td class="px-3">
-                                <div class="fw-semibold text-body fs-7"> {{ $namaUserFinal }}</div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="bg-warning-subtle text-warning rounded-circle d-flex align-items-center justify-content-center fw-bold fs-8 flex-shrink-0" style="width: 28px; height: 28px;">
+                                        {{ strtoupper(substr($namaUserFinal, 0, 1)) }}
+                                    </div>
+                                    <div class="fw-semibold text-body fs-7 text-truncate" style="max-width: 150px;">{{ $namaUserFinal }}</div>
+                                </div>
                             </td>
                             <td class="px-3">
                                 <div class="fw-semibold text-body fs-7">{{ $namaAlatFinal }}</div>
                             </td>
                             <td class="px-3">
-                                <span class="badge bg-body-tertiary text-body border font-monospace fw-semibold px-2.5 py-1.5 rounded-2 fs-8">
+                                <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle font-monospace fw-semibold px-2.5 py-1.5 rounded-2 fs-8">
                                     {{ $peminjaman->jumlah }} Unit
                                 </span>
                             </td>
                             <td class="px-3">
-                                <span class="text-body-secondary fs-7">{{ $peminjaman->tanggal_pinjam }}</span>
+                                <span class="text-body-secondary fs-7"><i class="bi bi-calendar-event me-1 opacity-50"></i>{{ $peminjaman->tanggal_pinjam }}</span>
                             </td>
                             <td class="px-3">
-                                <span class="text-body-secondary fs-7">{{ $peminjaman->tanggal_kembali ?? '-' }}</span>
+                                <span class="text-body-secondary fs-7"><i class="bi bi-calendar-check me-1 opacity-50"></i>{{ $peminjaman->tanggal_kembali ?? '-' }}</span>
                             </td>
                             <td class="px-3">
                                 @if($peminjaman->status == 'Pending')
@@ -74,7 +86,7 @@
                                 @elseif($peminjaman->status == 'Ditolak')
                                     <span class="badge bg-danger-subtle text-danger-emphasis fw-semibold px-2.5 py-1.5 rounded-2 fs-8">Ditolak</span>
                                 @elseif($peminjaman->status == 'Dipinjam')
-                                    <span class="badge bg-primary-subtle text-primary-emphasis fw-semibold px-2.5 py-1.5 rounded-2 fs-8">Dipinjam</span>
+                                    <span class="badge bg-brand-subtle text-brand-emphasis fw-semibold px-2.5 py-1.5 rounded-2 fs-8">Dipinjam</span>
                                 @else
                                     <span class="badge bg-success-subtle text-success-emphasis fw-semibold px-2.5 py-1.5 rounded-2 fs-8">Dikembalikan</span>
                                 @endif
@@ -84,8 +96,8 @@
                             </td>
                             <td class="px-4 text-center">
                                 <div class="d-inline-flex align-items-center justify-content-center gap-2">
-                                    <a href="{{ route('peminjaman.edit', ['id_peminjaman' => $peminjaman->id_peminjaman]) }}" class="btn btn-sm btn-outline-warning fw-semibold px-3 py-1.5 rounded-3 d-inline-flex align-items-center gap-1.5 fs-7 shadow-2xs">
-                                        <i class="bi bi-pencil-square"></i> Edit
+                                    <a href="{{ route('peminjaman.edit', ['id_peminjaman' => $peminjaman->id_peminjaman]) }}" class="btn btn-sm btn-outline-warning text-body fw-semibold px-3 py-1.5 rounded-3 d-inline-flex align-items-center gap-1.5 fs-7 shadow-2xs">
+                                        <i class="bi bi-pencil-square text-warning"></i> Edit
                                     </a>
                                     <form action="{{ route('peminjaman.delete', ['id_peminjaman' => $peminjaman->id_peminjaman]) }}" method="POST" class="d-inline m-0">
                                         @csrf
@@ -101,8 +113,11 @@
                         <tr>
                             <td colspan="9" class="text-center py-5 text-body-secondary">
                                 <div class="d-flex flex-column align-items-center gap-2">
-                                    <i class="bi bi-inbox fs-2 opacity-50"></i>
-                                    <span class="fs-7">Belum ada data peminjaman alat yang ditambahkan.</span>
+                                    <div class="bg-warning-subtle text-warning p-3 rounded-circle">
+                                        <i class="bi bi-inbox fs-2"></i>
+                                    </div>
+                                    <span class="fs-7 fw-medium text-body">Belum ada data peminjaman alat yang ditambahkan.</span>
+                                    <p class="text-muted small mb-0">Silakan buat peminjaman baru melalui tombol di atas.</p>
                                 </div>
                             </td>
                         </tr>

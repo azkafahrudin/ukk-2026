@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+
     <!-- PUSAT CSS SIDEBAR & DESAIN MODERN (COMPACT TANPA JS) -->
     <style>
         .app-sidebar {
@@ -84,7 +85,7 @@
         .sidebar-link:hover {
             opacity: 1;
             background-color: var(--bs-tertiary-bg);
-            color: var(--bs-primary);
+            color: var(--bs-brand);
         }
         .sidebar-link:hover i {
             transform: scale(1.1);
@@ -93,10 +94,10 @@
         /* Status Aktif (Warna Biru Modern) */
         .sidebar-link.active {
             opacity: 1 !important;
-            background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%) !important;
+            background: linear-gradient(135deg, hsl(68, 98%, 52%) 0%, rgb(215, 201, 11) 100%) !important;
             color: #ffffff !important;
             font-weight: 600;
-            box-shadow: 0 4px 10px rgba(13, 110, 253, 0.25);
+            box-shadow: 0 4px 10px hsla(61, 100%, 50%, 0.25);
         }
         .sidebar-link.active i {
             color: #ffffff !important;

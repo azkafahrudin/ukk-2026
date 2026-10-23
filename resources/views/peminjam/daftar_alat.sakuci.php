@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid px-0 py-3">
 
-    <!-- 🌟 BANNER HEADER HALAMAN ALAT (Selaras dengan Tema Dashboard) -->
+    <!-- 🌟 BANNER HEADER HALAMAN ALAT (Adaptif Bright & Dark Mode) -->
     <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4 text-white position-relative gold-banner">
         <div class="banner-pattern"></div>
         <div class="banner-glow"></div>
@@ -29,7 +29,7 @@
                     </p>
                 </div>
 
-                <!-- Kolom Search Bar di dalam Banner (Opsional / Akses Cepat) -->
+                <!-- Kolom Search Bar di dalam Banner -->
                 <div class="col-lg-5">
                     <form action="{{ route('peminjam.alat') }}" method="GET" class="card bg-white bg-opacity-10 border border-white border-opacity-20 p-3 rounded-4 backdrop-blur shadow-sm">
                         <label class="form-label text-white fw-semibold fs-8 mb-2 tracking-wider text-uppercase">Cari Peralatan</label>
@@ -53,11 +53,9 @@
     </div>
 
     @php
-        // Ambil data alat mentah
         $rawAlats = $alats ?? $alat ?? [];
         $searchQuery = trim(request('q') ?? '');
 
-        // Filter data menggunakan PHP murni
         $filteredAlats = [];
         foreach ($rawAlats as $item) {
             $namaAlat = $item->nama_alat ?? $item->nama ?? $item->name ?? '';
@@ -75,12 +73,12 @@
 
     <!-- Informasi Hasil Filter -->
     <div class="d-flex justify-content-between align-items-center mb-3 px-1">
-        <span class="text-muted fs-7">
+        <span class="text-body-secondary fs-7">
             Menampilkan <strong class="text-body">{{ count($filteredAlats) }}</strong> alat yang siap dipinjam
         </span>
     </div>
 
-    <!-- 📦 GRID CARD DAFTAR ALAT (Desain Modern & Clean) -->
+    <!-- 📦 GRID CARD DAFTAR ALAT -->
     <div class="row g-4 mb-4">
         @forelse($filteredAlats as $item)
             @php
@@ -91,16 +89,16 @@
                 $stokAlat     = $item->stok ?? $item->jumlah ?? null;
             @endphp
             <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-                <div class="card h-100 border-0 shadow-sm rounded-4 bg-body alat-card position-relative overflow-hidden">
+                <div class="card h-100 border-0 shadow-sm rounded-4 bg-card-custom alat-card position-relative overflow-hidden">
                     
                     <!-- Aksen Garis Atas Kartu -->
-                    <div class="card-top-accent bg-warning"></div>
+                    <div class="card-top-accent"></div>
 
                     <div class="card-body d-flex flex-column justify-content-between p-4">
                         <div>
                             <!-- Badge Kode Alat & Kategori -->
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-2.5 py-1 rounded-pill fw-semibold fs-8">
+                                <span class="badge badge-kode-custom px-2.5 py-1 rounded-pill fw-semibold fs-8">
                                     <i class="bi bi-tag-fill me-1"></i> {{ $kodeAlat }}
                                 </span>
                                 <span class="badge bg-secondary-subtle text-secondary px-2.5 py-1 rounded-pill fs-8">
@@ -110,7 +108,7 @@
 
                             <!-- Ilustrasi Ikon Mini & Nama Alat -->
                             <div class="d-flex align-items-start gap-3 mb-3">
-                                <div class="alat-icon-box bg-light text-warning flex-shrink-0 shadow-sm">
+                                <div class="alat-icon-box flex-shrink-0 shadow-sm">
                                     <i class="bi bi-tools"></i>
                                 </div>
                                 <div>
@@ -118,7 +116,7 @@
                                         {{ $namaAlat }}
                                     </h5>
                                     @if(isset($stokAlat))
-                                        <small class="text-muted fs-8">Stok tersedia: <strong>{{ $stokAlat }} unit</strong></small>
+                                        <small class="text-body-secondary fs-8">Stok tersedia: <strong class="text-body">{{ $stokAlat }} unit</strong></small>
                                     @else
                                         <small class="text-success fs-8"><i class="bi bi-check-circle-fill"></i> Status: Ready</small>
                                     @endif
@@ -127,9 +125,9 @@
                         </div>
 
                         <!-- Tombol Ajukan Pinjam -->
-                        <div class="mt-3 pt-3 border-top border-light">
+                        <div class="mt-3 pt-3 border-top border-secondary-subtle">
                             <a href="{{ route('peminjam.createPeminjam') . '?id_alat=' . $alatId }}" 
-                               class="btn btn-warning w-100 rounded-pill py-2.5 fw-bold text-dark d-flex align-items-center justify-content-center gap-2 hover-lift shadow-sm">
+                               class="btn btn-yellow-primary w-100 rounded-pill py-2.5 fw-bold d-flex align-items-center justify-content-center gap-2 hover-lift shadow-sm">
                                 <i class="bi bi-handbag-fill"></i>
                                 <span>Ajukan Pinjam</span>
                             </a>
@@ -140,14 +138,14 @@
             </div>
         @empty
             <div class="col-12">
-                <div class="card border-0 shadow-sm rounded-4 p-5 text-center bg-body">
+                <div class="card border-0 shadow-sm rounded-4 p-5 text-center bg-card-custom">
                     <div class="py-4">
-                        <div class="display-4 text-muted mb-3 opacity-50">
+                        <div class="display-4 text-body-secondary mb-3 opacity-50">
                             <i class="bi bi-search"></i>
                         </div>
                         <h5 class="fw-bold text-body mb-1">Peralatan Tidak Ditemukan</h5>
-                        <p class="text-muted fs-7 mb-3">Maaf, alat yang Anda cari dengan kata kunci "{{ request('q') }}" tidak tersedia.</p>
-                        <a href="{{ route('peminjam.alat') }}" class="btn btn-outline-warning text-dark fw-semibold rounded-pill px-4">
+                        <p class="text-body-secondary fs-7 mb-3">Maaf, alat yang Anda cari dengan kata kunci "{{ request('q') }}" tidak tersedia.</p>
+                        <a href="{{ route('peminjam.alat') }}" class="btn btn-outline-warning text-body fw-semibold rounded-pill px-4">
                             Lihat Semua Alat
                         </a>
                     </div>
@@ -161,7 +159,7 @@
 <style>
     /* Styling Banner Tema Kuning Emas */
     .gold-banner {
-        background: linear-gradient(135deg, #b45309 0%, #d97706 50%, #92400e 100%);
+        background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #b45309 100%);
         position: relative;
         overflow: hidden;
     }
@@ -169,7 +167,7 @@
     .banner-pattern {
         position: absolute;
         top: 0; right: 0; bottom: 0; left: 0;
-        background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+        background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
         background-size: 20px 20px;
         opacity: 0.6;
         pointer-events: none;
@@ -179,7 +177,7 @@
         position: absolute;
         top: -60px; right: -60px;
         width: 220px; height: 220px;
-        background: rgba(254, 240, 138, 0.25);
+        background: rgba(254, 240, 138, 0.3);
         filter: blur(60px);
         border-radius: 50%;
         pointer-events: none;
@@ -190,6 +188,12 @@
         -webkit-backdrop-filter: blur(8px);
     }
 
+    /* Adaptif Background Kartu untuk Light & Dark Mode */
+    .bg-card-custom {
+        background-color: var(--bs-card-bg, var(--bs-body-bg)) !important;
+        color: var(--bs-body-color) !important;
+    }
+
     /* Kartu Alat / Katalog */
     .alat-card {
         border: 1px solid var(--bs-border-color-translucent) !important;
@@ -198,14 +202,25 @@
 
     .alat-card:hover {
         transform: translateY(-5px);
-        border-color: #d97706 !important;
-        box-shadow: 0 0.75rem 1.5rem rgba(217, 119, 6, 0.12) !important;
+        border-color: #FFC107 !important;
+        box-shadow: 0 0.75rem 1.5rem rgba(255, 215, 0, 0.15) !important;
     }
 
     .card-top-accent {
         height: 4px;
         width: 100%;
-        background: #d97706;
+        background: #FFC107;
+    }
+
+    .badge-kode-custom {
+        background-color: rgba(255, 193, 7, 0.15);
+        color: #d97706;
+        border: 1px solid rgba(255, 193, 7, 0.3);
+    }
+
+    [data-bs-theme="dark"] .badge-kode-custom {
+        color: #FFD700;
+        background-color: rgba(255, 215, 0, 0.15);
     }
 
     .alat-icon-box {
@@ -216,8 +231,23 @@
         align-items: center;
         justify-content: center;
         font-size: 1.25rem;
-        background: rgba(217, 119, 6, 0.1);
-        color: #b45309;
+        background: rgba(255, 193, 7, 0.15);
+        color: #d97706;
+    }
+
+    [data-bs-theme="dark"] .alat-icon-box {
+        color: #FFD700;
+    }
+
+    .btn-yellow-primary {
+        background-color: #FFD700;
+        color: #000000;
+        border: none;
+    }
+
+    .btn-yellow-primary:hover {
+        background-color: #FFC107;
+        color: #000000;
     }
 
     .line-clamp-2 {

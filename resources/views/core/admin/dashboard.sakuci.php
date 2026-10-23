@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid px-0 py-2">
 
-    <!-- 🌟 BANNER UTAMA PREMIUM (Modern Dark Gradient with Glow) -->
+    <!-- 🌟 BANNER UTAMA PREMIUM (Nuansa Kuning Emas & Gelap Elegan) -->
     <div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-4 text-white position-relative premium-banner">
         <div class="banner-glow-1"></div>
         <div class="banner-glow-2"></div>
@@ -19,21 +19,21 @@
                         <span class="small fw-semibold text-white-50 tracking-wide">SECURE ADMIN CONSOLE</span>
                     </div>
                     <h1 class="fw-extrabold mb-2 display-6 tracking-tight text-white">
-                        Halo, <span class="text-gradient-gold">{{ $user->username ?? 'Administrator' }}</span> 👋
+                        Halo, <span class="text-warning font-monospace">{{ $user->username ?? 'Administrator' }}</span> 👋
                     </h1>
                     <p class="mb-0 text-white-50 fs-6 lh-relaxed" style="max-width: 620px;">
-                        Pusat kendali inventaris sistem. Kelola hak akses, monitoring alat, verifikasi peminjaman, dan eksekusi keamanan data dalam satu panel terpadu.
+                        Pusat kendali inventaris sistem PINVERA. Kelola hak akses, monitoring alat, verifikasi peminjaman, dan eksekusi keamanan data dalam satu panel terpadu.
                     </p>
                 </div>
                 <div class="col-lg-4 text-lg-end">
-                    <div class="d-inline-flex align-items-center gap-3 bg-black bg-opacity-30 backdrop-blur px-4 py-3 rounded-4 border border-white border-opacity-10">
+                    <div class="d-inline-flex align-items-center gap-3 bg-black bg-opacity-30 backdrop-blur px-4 py-3 rounded-4 border border-warning border-opacity-25">
                         <div class="status-indicator">
                             <span class="pulse-ring"></span>
                             <span class="pulse-dot"></span>
                         </div>
                         <div class="text-start">
                             <small class="text-white-50 d-block fs-7 uppercase fw-medium">Sistem Status</small>
-                            <span class="fw-bold text-success font-monospace small">ONLINE & SECURE</span>
+                            <span class="fw-bold text-warning font-monospace small">ONLINE & SECURE</span>
                         </div>
                     </div>
                 </div>
@@ -41,17 +41,17 @@
         </div>
     </div>
 
-    <!-- 📊 STATISTIK KARTU (Sleek Modern Cards) -->
+    <!-- 📊 STATISTIK KARTU (Aksen Kuning Emas yang Konsisten) -->
     <div class="row g-3 mb-4">
         
         <!-- Total User -->
         <div class="col-6 col-xl-3">
             <div class="card stat-card border-0 shadow-sm rounded-4 p-4 h-100 bg-body position-relative">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <div class="stat-icon-box bg-primary-subtle text-primary">
+                    <div class="stat-icon-box bg-warning-subtle text-warning">
                         <i class="bi bi-people-fill"></i>
                     </div>
-                    <span class="badge bg-primary-subtle text-primary rounded-pill px-2 py-1 fs-8 fw-semibold">User</span>
+                    <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill px-2 py-1 fs-8 fw-semibold">User</span>
                 </div>
                 <div>
                     <span class="text-muted text-uppercase fw-bold fs-8 tracking-wider d-block mb-1">Total Pengguna</span>
@@ -64,10 +64,10 @@
         <div class="col-6 col-xl-3">
             <div class="card stat-card border-0 shadow-sm rounded-4 p-4 h-100 bg-body position-relative">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <div class="stat-icon-box bg-info-subtle text-info">
+                    <div class="stat-icon-box bg-warning-subtle text-warning">
                         <i class="bi bi-box-seam-fill"></i>
                     </div>
-                    <span class="badge bg-info-subtle text-info rounded-pill px-2 py-1 fs-8 fw-semibold">Inventaris</span>
+                    <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill px-2 py-1 fs-8 fw-semibold">Inventaris</span>
                 </div>
                 <div>
                     <span class="text-muted text-uppercase fw-bold fs-8 tracking-wider d-block mb-1">Total Alat</span>
@@ -80,7 +80,7 @@
         <div class="col-6 col-xl-3">
             <div class="card stat-card border-0 shadow-sm rounded-4 p-4 h-100 bg-body position-relative">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <div class="stat-icon-box bg-warning-subtle text-warning-emphasis">
+                    <div class="stat-icon-box bg-warning-subtle text-warning">
                         <i class="bi bi-arrow-repeat"></i>
                     </div>
                     <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill px-2 py-1 fs-8 fw-semibold">Transaksi</span>
@@ -96,10 +96,10 @@
         <div class="col-6 col-xl-3">
             <div class="card stat-card border-0 shadow-sm rounded-4 p-4 h-100 bg-body position-relative">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <div class="stat-icon-box bg-success-subtle text-success">
+                    <div class="stat-icon-box bg-warning-subtle text-warning">
                         <i class="bi bi-database-check"></i>
                     </div>
-                    <span class="badge bg-success-subtle text-success rounded-pill px-2 py-1 fs-8 fw-semibold">Selesai</span>
+                    <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill px-2 py-1 fs-8 fw-semibold">Selesai</span>
                 </div>
                 <div>
                     <span class="text-muted text-uppercase fw-bold fs-8 tracking-wider d-block mb-1">Pengembalian</span>
@@ -110,11 +110,11 @@
 
     </div>
 
-    <!-- 🗂️ MENU KELOLA SISTEM (Bento Grid Style) -->
+    <!-- 🗂️ MENU KELOLA SISTEM (Bento Grid Style beraksen kuning) -->
     <div class="d-flex align-items-center justify-content-between mb-3">
         <div>
             <h5 class="fw-bold text-body mb-0 d-flex align-items-center gap-2">
-                <i class="bi bi-grid-fill text-primary"></i> Menu Manajemen Sistem
+                <i class="bi bi-grid-fill text-warning"></i> Menu Manajemen Sistem
             </h5>
             <small class="text-muted">Pilih modul navigasi di bawah ini untuk mengelola data</small>
         </div>
@@ -135,7 +135,7 @@
                 </div>
                 <div>
                     <h6 class="fw-bold text-body mb-1 fs-5">Manage User</h6>
-                    <small class="text-primary fw-medium d-block mb-2">Kelola Akun Pengguna</small>
+                    <small class="text-warning fw-semibold d-block mb-2">Kelola Akun Pengguna</small>
                     <p class="text-muted small mb-0 fs-7">Pengaturan pendaftaran akun baru, reset password, dan daftar pengguna terdaftar.</p>
                 </div>
             </a>
@@ -154,7 +154,7 @@
                 </div>
                 <div>
                     <h6 class="fw-bold text-body mb-1 fs-5">Manage Role</h6>
-                    <small class="text-primary fw-medium d-block mb-2">Hak Akses & Kewenangan</small>
+                    <small class="text-warning fw-semibold d-block mb-2">Hak Akses & Kewenangan</small>
                     <p class="text-muted small mb-0 fs-7">Tambah, ubah, atau atur peran hak akses pengguna (Admin, Petugas, Siswa).</p>
                 </div>
             </a>
@@ -173,7 +173,7 @@
                 </div>
                 <div>
                     <h6 class="fw-bold text-body mb-1 fs-5">Kategori Alat</h6>
-                    <small class="text-primary fw-medium d-block mb-2">Pengelompokan Barang</small>
+                    <small class="text-warning fw-semibold d-block mb-2">Pengelompokan Barang</small>
                     <p class="text-muted small mb-0 fs-7">Kelola grup dan kategori untuk mempermudah pemilahan barang inventaris.</p>
                 </div>
             </a>
@@ -192,7 +192,7 @@
                 </div>
                 <div>
                     <h6 class="fw-bold text-body mb-1 fs-5">Data Alat</h6>
-                    <small class="text-primary fw-medium d-block mb-2">Stok & Spesifikasi Alat</small>
+                    <small class="text-warning fw-semibold d-block mb-2">Stok & Spesifikasi Alat</small>
                     <p class="text-muted small mb-0 fs-7">Tambah item barang/alat baru, update jumlah stok, dan informasi kondisi alat.</p>
                 </div>
             </a>
@@ -211,7 +211,7 @@
                 </div>
                 <div>
                     <h6 class="fw-bold text-body mb-1 fs-5">Persetujuan Peminjaman</h6>
-                    <small class="text-primary fw-medium d-block mb-2">Verifikasi Pengajuan</small>
+                    <small class="text-warning fw-semibold d-block mb-2">Verifikasi Pengajuan</small>
                     <p class="text-muted small mb-0 fs-7">Proses persetujuan (Approve/Reject) pengajuan peminjaman alat dari siswa.</p>
                 </div>
             </a>
@@ -230,7 +230,7 @@
                 </div>
                 <div>
                     <h6 class="fw-bold text-body mb-1 fs-5">Data Pengembalian</h6>
-                    <small class="text-primary fw-medium d-block mb-2">Pencatatan & Denda</small>
+                    <small class="text-warning fw-semibold d-block mb-2">Pencatatan & Denda</small>
                     <p class="text-muted small mb-0 fs-7">Konfirmasi pengembalian barang, cek keterlambatan, dan pencatatan denda.</p>
                 </div>
             </a>
@@ -242,7 +242,7 @@
     <div class="card border-0 shadow-sm rounded-4 p-2 bg-body database-card mb-3">
         <div class="card-body d-flex align-items-center justify-content-between flex-wrap gap-3">
             <div class="d-flex align-items-center gap-3">
-                <div class="bg-danger-subtle text-danger p-3 rounded-3 fs-4 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px;">
+                <div class="bg-warning-subtle text-warning p-3 rounded-3 fs-4 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px;">
                     <i class="bi bi-database-down"></i>
                 </div>
                 <div>
@@ -250,7 +250,7 @@
                     <small class="text-muted">Unduh file cadangan data SQL sistem secara berkala untuk pencegahan kehilangan data.</small>
                 </div>
             </div>
-            <a href="{{ route('admin.database.export') }}" class="btn btn-danger rounded-pill px-4 py-2.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-2 hover-lift">
+            <a href="{{ route('admin.database.export') }}" class="btn btn-warning text-dark rounded-pill px-4 py-2.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-2 hover-lift">
                 <i class="bi bi-download"></i> Unduh Backup SQL
             </a>
         </div>
@@ -259,12 +259,12 @@
 </div>
 
 <style>
-    /* Styling High-End Tech Dashboard */
+    /* Styling High-End Tech Dashboard Bernuansa Kuning */
     .premium-banner {
-        background: linear-gradient(135deg, #0b1120 0%, #1e1b4b 50%, #0f172a 100%);
+        background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #0f172a 100%);
         position: relative;
         overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 193, 7, 0.2);
     }
 
     .banner-glow-1 {
@@ -273,7 +273,7 @@
         right: -30px;
         width: 220px;
         height: 220px;
-        background: rgba(99, 102, 241, 0.2);
+        background: rgba(255, 193, 7, 0.15);
         filter: blur(60px);
         border-radius: 50%;
         pointer-events: none;
@@ -285,7 +285,7 @@
         left: 10%;
         width: 180px;
         height: 180px;
-        background: rgba(245, 158, 11, 0.15);
+        background: rgba(255, 193, 7, 0.1);
         filter: blur(60px);
         border-radius: 50%;
         pointer-events: none;
@@ -294,12 +294,6 @@
     .backdrop-blur {
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-    }
-
-    .text-gradient-gold {
-        background: linear-gradient(135deg, #fef08a 0%, #fde047 50%, #eab308 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
     }
 
     /* Live Pulse Status */
@@ -315,7 +309,7 @@
     .pulse-dot {
         width: 8px;
         height: 8px;
-        background-color: #22c55e;
+        background-color: #ffc107;
         border-radius: 50%;
         z-index: 2;
     }
@@ -324,7 +318,7 @@
         position: absolute;
         width: 20px;
         height: 20px;
-        background-color: rgba(34, 197, 94, 0.4);
+        background-color: rgba(255, 193, 7, 0.4);
         border-radius: 50%;
         animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
     }
@@ -342,8 +336,8 @@
 
     .stat-card:hover {
         transform: translateY(-4px);
-        border-color: var(--bs-primary) !important;
-        box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.06) !important;
+        border-color: #ffc107 !important;
+        box-shadow: 0 0.75rem 1.5rem rgba(255, 193, 7, 0.1) !important;
     }
 
     .stat-icon-box {
@@ -367,7 +361,7 @@
         width: 48px;
         height: 48px;
         background-color: var(--bs-tertiary-bg);
-        color: var(--bs-primary);
+        color: #ffc107;
         transition: all 0.25s ease;
     }
 
@@ -385,20 +379,20 @@
     }
 
     .bento-card:hover {
-        border-color: var(--bs-primary) !important;
+        border-color: #ffc107 !important;
         transform: translateY(-5px);
-        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.08) !important;
+        box-shadow: 0 1rem 2rem rgba(255, 193, 7, 0.12) !important;
     }
 
     .bento-card:hover .bento-icon {
-        background-color: var(--bs-primary);
-        color: #ffffff;
+        background-color: #ffc107;
+        color: #000000;
         transform: scale(1.05);
     }
 
     .bento-card:hover .bento-arrow {
-        background-color: var(--bs-primary);
-        color: #ffffff;
+        background-color: #ffc107;
+        color: #000000;
         transform: translate(2px, -2px);
     }
 
@@ -407,7 +401,7 @@
         transition: all 0.2s ease;
     }
     .database-card:hover {
-        border-color: var(--bs-danger) !important;
+        border-color: #ffc107 !important;
     }
 
     .hover-lift {
@@ -415,7 +409,7 @@
     }
     .hover-lift:hover {
         transform: translateY(-2px);
-        box-shadow: 0 0.5rem 1rem rgba(220, 53, 69, 0.2) !important;
+        box-shadow: 0 0.5rem 1rem rgba(255, 193, 7, 0.25) !important;
     }
 
     .fs-7 { font-size: 0.8125rem; line-height: 1.4; }

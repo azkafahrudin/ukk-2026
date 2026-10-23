@@ -71,7 +71,7 @@
                     <!-- Tombol Simpan -->
                     <div class="col-12 d-flex justify-content-end gap-2 mt-4">
                         <a href="{{ route('pengembalian.index') }}" class="btn btn-light px-4 py-2 rounded-3 fw-medium">Batal</a>
-                        <button type="submit" class="btn btn-primary px-4 py-2 rounded-3 shadow-sm fw-medium">Simpan Perubahan</button>
+                        <button type="submit" class="btn btn-brand px-4 py-2 rounded-3 shadow-sm fw-medium">Simpan Perubahan</button>
                     </div>
                 </div>
             </form>

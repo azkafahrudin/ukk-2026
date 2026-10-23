@@ -27,7 +27,7 @@
     };
 @endphp
 
-<!-- CSS Murni untuk Mengubah Ikon Bulan/Matahari Berdasarkan Tema Bootstrap -->
+<!-- CSS Murni untuk Mengubah Ikon Bulan/Matahari Berdasarkan Tema Bootstrap & Kustomisasi Warna Kuning -->
 <style>
     /* Default: Tampilkan Bulan (Untuk Mode Gelap) / Sembunyikan Matahari */
     #themeToggle .icon-sun {
@@ -43,6 +43,19 @@
     }
     [data-bs-theme="light"] #themeToggle .icon-moon {
         display: none;
+    }
+
+    /* Kustomisasi warna aktif sidebar bernuansa kuning */
+    .sidebar-link.active {
+        background-color: var(--bs-warning) !important;
+        color: #000 !important;
+        font-weight: 600;
+    }
+    .sidebar-link.active i {
+        color: #000 !important;
+    }
+    .sidebar-link:hover {
+        color: var(--bs-warning);
     }
 </style>
 
@@ -92,7 +105,7 @@
                     $active = (function_exists('is_route') && is_route('home')) || $currentUri === '/' || str_ends_with($currentUri, '/public/'); 
                 @endphp
                 <a href="{{ route('home') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                    <i class="bi bi-house-door-fill"></i>
+                    <i class="bi bi-house-door-fill text-warning"></i>
                     <span>Beranda</span>
                 </a>
             </li>
@@ -105,7 +118,7 @@
                 <li>
                     @php $active = $isActive('/admin/dashboard') || $currentUri === '/admin' || $currentUri === '/admin/'; @endphp
                     <a href="{{ route('admin.dashboard') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-grid-1x2-fill"></i>
+                        <i class="bi bi-grid-1x2-fill text-warning"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
@@ -115,14 +128,14 @@
                 <li>
                     @php $active = $isActive('/admin/users'); @endphp
                     <a href="{{ route('admin.users.index') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-people-fill"></i>
+                        <i class="bi bi-people-fill text-warning"></i>
                         <span>Manage User</span>
                     </a>
                 </li>
                 <li>
                     @php $active = $isActive('/admin/roles'); @endphp
                     <a href="{{ route('admin.roles.index') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-shield-check"></i>
+                        <i class="bi bi-shield-check text-warning"></i>
                         <span>Manage Role</span>
                     </a>
                 </li>
@@ -132,14 +145,14 @@
                 <li>
                     @php $active = $isActive('/admin/kategori'); @endphp
                     <a href="{{ route('kategori.index') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-tags-fill"></i>
+                        <i class="bi bi-tags-fill text-warning"></i>
                         <span>Kategori Alat</span>
                     </a>
                 </li>
                 <li>
                     @php $active = $isActive('/admin/alat'); @endphp
                     <a href="{{ route('alat.index') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-box-seam-fill"></i>
+                        <i class="bi bi-box-seam-fill text-warning"></i>
                         <span>Data Alat</span>
                     </a>
                 </li>
@@ -149,14 +162,14 @@
                 <li>
                     @php $active = $isActive('/admin/peminjaman'); @endphp
                     <a href="{{ route('peminjaman.index') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-arrow-up-right-circle-fill"></i>
+                        <i class="bi bi-arrow-up-right-circle-fill text-warning"></i>
                         <span>Peminjaman</span>
                     </a>
                 </li>
                 <li>
                     @php $active = $isActive('/admin/pengembalian'); @endphp
                     <a href="{{ route('pengembalian.index') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-arrow-down-left-circle-fill"></i>
+                        <i class="bi bi-arrow-down-left-circle-fill text-warning"></i>
                         <span>Pengembalian</span>
                     </a>
                 </li>
@@ -166,14 +179,14 @@
                 <li>
                     @php $active = $isActive('/admin/log-aktifitas'); @endphp
                     <a href="{{ route('admin.log.index') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-journal-text"></i>
+                        <i class="bi bi-journal-text text-warning"></i>
                         <span>Log Aktifitas</span>
                     </a>
                 </li>
                 <li>
                     @php $active = $isActive('/admin/database/export'); @endphp
                     <a href="{{ route('admin.database.export') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-database-fill-down"></i>
+                        <i class="bi bi-database-fill-down text-warning"></i>
                         <span>Backup Database</span>
                     </a>
                 </li>
@@ -186,35 +199,35 @@
                 <li>
                     @php $active = $currentUri === '/peminjam' || $currentUri === '/peminjam/' || $isActive('/peminjam/dashboard'); @endphp
                     <a href="{{ route('peminjam.dashboard') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-grid-1x2-fill"></i>
+                        <i class="bi bi-grid-1x2-fill text-warning"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
                     @php $active = $isActive('/peminjam/daftar-alat', '/peminjam/alat'); @endphp
                     <a href="{{ route('peminjam.alat') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-box-seam-fill"></i>
+                        <i class="bi bi-box-seam-fill text-warning"></i>
                         <span>Daftar Alat</span>
                     </a>
                 </li>
                 <li>
                     @php $active = $isActive('/peminjam/ajukan', '/peminjam/create', '/peminjam/peminjam/ajukan'); @endphp
                     <a href="{{ route('peminjam.createPeminjam') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-plus-circle-fill"></i>
+                        <i class="bi bi-plus-circle-fill text-warning"></i>
                         <span>Ajukan Peminjaman</span>
                     </a>
                 </li>
                 <li>
                     @php $active = $isActive('/peminjam/pengembalian'); @endphp
                     <a href="{{ route('peminjam.pengembalian.create') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-arrow-down-left-circle-fill"></i>
+                        <i class="bi bi-arrow-down-left-circle-fill text-warning"></i>
                         <span>Kembalikan Alat</span>
                     </a>
                 </li>
                 <li>
                     @php $active = $isActive('/riwayat-peminjaman'); @endphp
                     <a href="{{ route('peminjam.riwayat') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-clock-history"></i>
+                        <i class="bi bi-clock-history text-warning"></i>
                         <span>Riwayat Peminjaman</span>
                     </a>
                 </li>
@@ -231,21 +244,21 @@
                                   $isActive('/petugas/dashboard'); 
                     @endphp
                     <a href="{{ route('petugas.dashboard') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-grid-1x2-fill"></i>
+                        <i class="bi bi-grid-1x2-fill text-warning"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
                     @php $active = $isActive('/petugas/peminjaman'); @endphp
                     <a href="{{ route('petugas.peminjaman.index') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-check-circle-fill"></i>
+                        <i class="bi bi-check-circle-fill text-warning"></i>
                         <span>Persetujuan Peminjaman</span>
                     </a>
                 </li>
                 <li>
                     @php $active = $isActive('/petugas/pengembalian'); @endphp
                     <a href="{{ route('petugas.pengembalian.index') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
-                        <i class="bi bi-arrow-return-left"></i>
+                        <i class="bi bi-arrow-return-left text-warning"></i>
                         <span>Pantau Pengembalian</span>
                     </a>
                 </li>
@@ -261,7 +274,7 @@
         <!-- Tampil Jika Sudah Login -->
         <div class="d-flex flex-column gap-2 px-1 flex-shrink-0 pt-1">
             <div class="d-flex align-items-center gap-2 p-2 rounded-3 bg-body-tertiary">
-                <div class="bg-primary text-white rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; flex-shrink: 0;">
+                <div class="bg-warning text-dark rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; flex-shrink: 0;">
                     <i class="bi bi-person-fill fs-6"></i>
                 </div>
                 <div class="overflow-hidden">
@@ -281,11 +294,11 @@
     @else
         <!-- Tampil Jika Belum Login (Guest) -->
         <div class="d-flex flex-column gap-2 px-1 flex-shrink-0 pt-1">
-            <a href="{{ route('login') }}" class="btn btn-sm btn-outline-primary w-100 rounded-3 d-flex align-items-center justify-content-center gap-2 py-2">
+            <a href="{{ route('login') }}" class="btn btn-sm btn-outline-warning w-100 rounded-3 d-flex align-items-center justify-content-center gap-2 py-2">
                 <i class="bi bi-box-arrow-in-right"></i>
                 <span class="fw-medium">Masuk</span>
             </a>
-            <a href="{{ route('register') }}" class="btn btn-sm btn-primary w-100 rounded-3 d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm">
+            <a href="{{ route('register') }}" class="btn btn-sm btn-warning text-dark w-100 rounded-3 d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm">
                 <i class="bi bi-person-plus"></i>
                 <span class="fw-medium">Daftar Akun</span>
             </a>
