@@ -74,7 +74,7 @@
     <!-- Informasi Hasil Filter -->
     <div class="d-flex justify-content-between align-items-center mb-3 px-1">
         <span class="text-body-secondary fs-7">
-            Menampilkan <strong class="text-body">{{ count($filteredAlats) }}</strong> alat yang siap dipinjam
+            Menampilkan <strong class="text-body">{{ count($filteredAlats) }}</strong> alat yang terdaftar di sistem
         </span>
     </div>
 
@@ -86,13 +86,15 @@
                 $alatId       = $item->id_alat ?? $item->id;
                 $namaAlat     = $item->nama_alat ?? $item->nama ?? $item->name ?? 'Alat #' . $alatId;
                 $kodeAlat     = $item->kode_alat ?? $item->kode ?? 'ALT';
-                $stokAlat     = $item->stok ?? $item->jumlah ?? null;
+                
+                // Mengambil nilai stok secara aman dari kolom stok database
+                $stokAlat     = $item->stok ?? 0;
             @endphp
             <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
                 <div class="card h-100 border-0 shadow-sm rounded-4 bg-card-custom alat-card position-relative overflow-hidden">
                     
-                    <!-- Aksen Garis Atas Kartu -->
-                    <div class="card-top-accent"></div>
+                    <!-- Aksen Garis Atas Kartu (Berubah merah jika stok habis) -->
+                    <div class="card-top-accent {{ $stokAlat <= 0 ? 'bg-danger' : '' }}"></div>
 
                     <div class="card-body d-flex flex-column justify-content-between p-4">
                         <div>
@@ -108,29 +110,38 @@
 
                             <!-- Ilustrasi Ikon Mini & Nama Alat -->
                             <div class="d-flex align-items-start gap-3 mb-3">
-                                <div class="alat-icon-box flex-shrink-0 shadow-sm">
+                                <div class="alat-icon-box flex-shrink-0 shadow-sm {{ $stokAlat <= 0 ? 'bg-danger-subtle text-danger' : '' }}">
                                     <i class="bi bi-tools"></i>
                                 </div>
                                 <div>
                                     <h5 class="fw-bold fs-6 mb-1 text-body line-clamp-2">
                                         {{ $namaAlat }}
                                     </h5>
-                                    @if(isset($stokAlat))
-                                        <small class="text-body-secondary fs-8">Stok tersedia: <strong class="text-body">{{ $stokAlat }} unit</strong></small>
+                                    
+                                    <!-- Indikator Stok Dinamis -->
+                                    @if($stokAlat > 0)
+                                        <small class="text-body-secondary fs-8">Stok tersedia: <strong class="text-success">{{ $stokAlat }} unit</strong></small>
                                     @else
-                                        <small class="text-success fs-8"><i class="bi bi-check-circle-fill"></i> Status: Ready</small>
+                                        <small class="text-danger fs-8 fw-semibold"><i class="bi bi-x-circle-fill"></i> Stok Habis</small>
                                     @endif
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Tombol Ajukan Pinjam -->
+                        <!-- Tombol Ajukan Pinjam (Disable otomatis jika stok 0) -->
                         <div class="mt-3 pt-3 border-top border-secondary-subtle">
-                            <a href="{{ route('peminjam.createPeminjam') . '?id_alat=' . $alatId }}" 
-                               class="btn btn-yellow-primary w-100 rounded-pill py-2.5 fw-bold d-flex align-items-center justify-content-center gap-2 hover-lift shadow-sm">
-                                <i class="bi bi-handbag-fill"></i>
-                                <span>Ajukan Pinjam</span>
-                            </a>
+                            @if($stokAlat > 0)
+                                <a href="{{ route('peminjam.createPeminjam') . '?id_alat=' . $alatId }}" 
+                                   class="btn btn-yellow-primary w-100 rounded-pill py-2.5 fw-bold d-flex align-items-center justify-content-center gap-2 hover-lift shadow-sm">
+                                    <i class="bi bi-handbag-fill"></i>
+                                    <span>Ajukan Pinjam</span>
+                                </a>
+                            @else
+                                <button type="button" class="btn btn-secondary w-100 rounded-pill py-2.5 fw-bold d-flex align-items-center justify-content-center gap-2 opacity-50" disabled>
+                                    <i class="bi bi-slash-circle"></i>
+                                    <span>Stok Kosong</span>
+                                </button>
+                            @endif
                         </div>
 
                     </div>

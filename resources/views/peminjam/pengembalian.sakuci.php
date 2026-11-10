@@ -30,12 +30,19 @@
                     <div class="mb-3">
                         <label for="id_peminjaman" class="form-label fw-semibold">Pilih Alat yang Ingin Dikembalikan <span class="text-danger">*</span></label>
                         <select name="id_peminjaman" id="id_peminjaman" class="form-select @error('id_peminjaman') is-invalid @enderror" required>
-                            <option value="">-- Pilih Alat dari Daftar Pinjaman --</option>
-                            @foreach($peminjamanAktif as $p)
+                        <option value="">-- Pilih Alat dari Daftar Pinjaman --</option>
+                        @foreach($peminjamanAktif as $p)
+                            {{-- Hanya tampilkan jika statusnya Dipinjam atau Disetujui (artinya belum sedang mengajukan pengembalian) --}}
+                            @php
+                                $statusLower = strtolower($p->status);
+                            @endphp
+                            
+                            @if($statusLower == 'dipinjam' || $statusLower == 'disetujui')
                                 <option value="{{ $p->id_peminjaman ?? $p->id }}">
                                     📦 {{ $p->alat->nama_alat ?? ($p->alat->nama ?? ($p->nama_alat ?? 'Alat ID: ' . $p->id_alat)) }} (Status: {{ ucfirst($p->status) }})
                                 </option>
-                            @endforeach
+                            @endif
+                        @endforeach
                         </select>
                         @error('id_peminjaman')
                             <div class="invalid-feedback">{{ $message }}</div>

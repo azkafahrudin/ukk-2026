@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Pantau Pengembalian - PINVERA')
+@section('title', 'Pantau Pengembalian - inventarishub')
 
 @section('content')
 <div class="container-fluid px-4 py-4">
@@ -44,6 +44,7 @@
                                 $peminjaman = $peminjamanList[$item->id_peminjaman] ?? null;
                                 $namaUser = $peminjaman ? ($userList[$peminjaman->id_user] ?? 'Tidak diketahui') : 'Tidak diketahui';
                                 $namaAlat = $peminjaman ? ($alatList[$peminjaman->id_alat] ?? 'Alat dihapus') : 'Alat dihapus';
+                                $status = $item->status ?? 'Pending';
                             @endphp
                             <tr>
                                 <td class="py-3 text-body-secondary">{{ $datap->firstItem() + $index }}</td>
@@ -62,9 +63,34 @@
                                     @endif
                                 </td>
                                 <td class="py-3 text-end">
-                                    <span class="badge bg-success rounded-pill px-3 py-2">
-                                        <i class="bi bi-check2-all"></i> Selesai
-                                    </span>
+                                    @if(strtolower($status) == 'disetujui' || strtolower($status) == 'selesai')
+                                        <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">
+                                            <i class="bi bi-check-circle me-1"></i> Disetujui
+                                        </span>
+                                    @elseif(strtolower($status) == 'ditolak')
+                                        <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill">
+                                            <i class="bi bi-x-circle me-1"></i> Ditolak
+                                        </span>
+                                    @else
+                                        <!-- Tombol Aksi untuk Petugas jika status masih Pending -->
+                                        <div class="d-inline-flex gap-1">
+                                            <!-- DIPERBAIKI: Menggunakan array untuk route parameter -->
+                                            <form action="{{ route('petugas.pengembalian.setujui', ['id' => $item->id_pengembalian]) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-success px-2 py-1 rounded-2 shadow-2xs" title="Setujui Pengembalian">
+                                                    <i class="bi bi-check-lg"></i> Setuju
+                                                </button>
+                                            </form>
+                                            
+                                            <!-- DIPERBAIKI: Menggunakan array untuk route parameter -->
+                                            <form action="{{ route('petugas.pengembalian.tolak', ['id' => $item->id_pengembalian]) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-danger px-2 py-1 rounded-2 shadow-2xs" title="Tolak Pengembalian" onclick="return confirm('Yakin ingin menolak pengembalian ini?')">
+                                                    <i class="bi bi-x-lg"></i> Tolak
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @endif
                                 </td>
                             </tr>
                         @empty

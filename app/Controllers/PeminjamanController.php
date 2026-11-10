@@ -31,8 +31,19 @@ class PeminjamanController
     {
         $data = $request->all();
         
+        // Validasi ketersediaan stok sebelum diproses
+        $alat = Alat::where('id_alat', $data['id_alat'])->first();
+        if (!$alat || $alat->stok < $data['jumlah']) {
+            return redirect(route('peminjaman.index'))->with('error', 'Stok alat tidak mencukupi atau alat tidak ditemukan!');
+        }
+
         if (!isset($data['status']) || empty($data['status'])) {
             $data['status'] = 'Pending';
+        }
+
+        // Jika langsung dibuat dengan status 'Disetujui' atau 'Dipinjam', kurangi stok
+        if (in_array($data['status'], ['Disetujui', 'Dipinjam'])) {
+            $alat->update(['stok' => $alat->stok - $data['jumlah']]);
         }
 
         Peminjaman::create($data);
@@ -91,6 +102,14 @@ class PeminjamanController
     {
         $peminjaman = Peminjaman::where('id_peminjaman', $id)->first();
         if ($peminjaman) {
+            // Jika data yang dihapus statusnya sedang dipinjam/disetujui, kembalikan stoknya
+            if (in_array($peminjaman->status, ['Disetujui', 'Dipinjam'])) {
+                $alat = Alat::where('id_alat', $peminjaman->id_alat)->first();
+                if ($alat) {
+                    $alat->update(['stok' => $alat->stok + $peminjaman->jumlah]);
+                }
+            }
+
             $peminjaman->delete();
 
             // Pencatatan Log Aktivitas Admin
@@ -140,9 +159,14 @@ class PeminjamanController
 
         $data = $request->all();
         
-        // Memastikan id_user dikunci menggunakan data session login (mencegah manipulasi input)
+        // Validasi stok sebelum siswa mengajukan
+        $alat = Alat::where('id_alat', $data['id_alat'])->first();
+        if (!$alat || $alat->stok < $data['jumlah']) {
+            return redirect(route('peminjam.riwayat'))->with('error', 'Maaf, stok alat ini tidak mencukupi.');
+        }
+
         $data['id_user'] = $currentUser->id;
-        $data['status'] = 'Pending';
+        $data['status'] = 'Pending'; 
 
         Peminjaman::create($data);
 
@@ -152,13 +176,12 @@ class PeminjamanController
             'aktifitas' => 'Peminjam ' . ($currentUser->username ?? 'Siswa') . ' mengajukan permohonan peminjaman alat baru.'
         ]);
 
-        // DIUBAH KE rute riwayat yang sesuai web.php
         return redirect(route('peminjam.riwayat'))->with('success', 'Pengajuan peminjaman berhasil dikirim dan masuk ke daftar riwayat!');
     }
 
 
     // ==========================================
-    // BAGIAN PETUGAS: Verifikasi & Persetujuan
+    // BAGIAN PETUGAS: Verifikasi & Persetujuan Peminjaman
     // ==========================================
 
     public function indexPetugas(Request $request)
@@ -173,25 +196,49 @@ class PeminjamanController
         return view('petugas.peminjaman', compact('datap'));
     }
 
-    public function setujuiPetugas(Request $request, $id)
+    // Petugas Menyetujui Peminjaman (Stok berkurang)
+    public function setujuPeminjaman(Request $request, $id)
     {
         $peminjaman = Peminjaman::where('id_peminjaman', $id)->first();
-
         if (!$peminjaman) {
             return redirect(route('petugas.peminjaman.index'))->with('error', 'Data peminjaman tidak ditemukan.');
         }
 
-        $peminjaman->update([
-            'status' => 'Disetujui'
-        ]);
+        // Cek stok alat sebelum disetujui
+        $alat = Alat::where('id_alat', $peminjaman->id_alat)->first();
+        if ($alat && $alat->stok >= $peminjaman->jumlah) {
+            // Kurangi stok alat
+            $alat->update(['stok' => $alat->stok - $peminjaman->jumlah]);
+            // Ubah status peminjaman jadi Disetujui / Dipinjam
+            $peminjaman->update(['status' => 'Disetujui']);
+        } else {
+            return redirect(route('petugas.peminjaman.index'))->with('error', 'Stok alat tidak mencukupi untuk disetujui.');
+        }
 
-        // Pencatatan Log Aktivitas Petugas
-        $currentUser = User::current();
         LogAktifitas::create([
-            'id_user'   => $currentUser->id ?? null,
-            'aktifitas' => 'Petugas menyetujui transaksi peminjaman (ID: ' . $id . ').'
+            'id_user'   => User::current()->id ?? null,
+            'aktifitas' => 'Petugas menyetujui peminjaman alat (ID Peminjaman: ' . $id . ').'
         ]);
 
-        return redirect(route('petugas.peminjaman.index'))->with('success', 'Peminjaman alat berhasil disetujui!');
+        return redirect(route('petugas.peminjaman.index'))->with('success', 'Peminjaman alat berhasil disetujui dan stok dikurangi!');
+    }
+
+    // Petugas Menolak Peminjaman
+    public function tolakPeminjaman(Request $request, $id)
+    {
+        $peminjaman = Peminjaman::where('id_peminjaman', $id)->first();
+        if (!$peminjaman) {
+            return redirect(route('petugas.peminjaman.index'))->with('error', 'Data peminjaman tidak ditemukan.');
+        }
+
+        // Update status peminjaman jadi Ditolak
+        $peminjaman->update(['status' => 'Ditolak']);
+
+        LogAktifitas::create([
+            'id_user'   => User::current()->id ?? null,
+            'aktifitas' => 'Petugas menolak peminjaman alat (ID Peminjaman: ' . $id . ').'
+        ]);
+
+        return redirect(route('petugas.peminjaman.index'))->with('success', 'Pengajuan peminjaman alat ditolak.');
     }
 }

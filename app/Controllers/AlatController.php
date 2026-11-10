@@ -2,83 +2,129 @@
 
 namespace App\Controllers;
 
-use Sakuci\Controller;
-use Sakuci\Http\Request;
 use App\Models\Alat;
-use App\Models\Kategori;
+use App\Models\Kategori; // Sesuaikan dengan nama model kategori kamu jika ada
+use App\Models\User;
+use App\Models\LogAktifitas;
+use Sakuci\Http\Request;
 
-class AlatController extends Controller
+class AlatController
 {
-    // Method khusus peminjam untuk melihat daftar alat
-    public function daftarAlatPeminjam(Request $request)
-    {
-        $query = Alat::query();
-
-        // Fitur Cari Alat berdasarkan nama atau kode
-        if ($request->has('q') && !empty($request->q)) {
-            $search = $request->q;
-            $query->where('nama_alat', 'LIKE', "%{$search}%")
-                  ->orWhere('kode_alat', 'LIKE', "%{$search}%");
-        }
-
-        $alats = $query->orderBy('id_alat', 'desc')->paginate(8);
-
-        // Ambil data kategori untuk relasi tampilan
-        $kategoriList = Kategori::all();
-        $kategoriMap = [];
-        foreach ($kategoriList as $k) {
-            $idK = $k->id_kategori ?? $k->id;
-            $kategoriMap[$idK] = $k->nama_kategori ?? $k->kategori ?? 'Umum';
-        }
-
-        return view('peminjam.daftar_alat', compact('alats', 'kategoriMap'));
-    }
-
+    // 1. Menampilkan Daftar Alat (Index)
     public function index(Request $request)
     {
-        $datal = Alat::orderBy('id_alat', 'desc')->paginate(4);
-        $kategori = Kategori::all();
+        // Mengambil data alat dengan pagination (atau bisa juga Alat::all())
+        $datal = Alat::orderBy('id_alat', 'desc')->paginate(10);
+        
+        // Ambil data kategori untuk ditampilkan namanya di tabel
+        // Jika model kategori kamu berbeda, silakan sesuaikan
+        $kategori = \App\Models\Kategori::all(); 
+
         return view('alat.index', compact('datal', 'kategori'));
     }
 
+    // 2. Menampilkan Form Tambah Alat
     public function create(Request $request)
     {
-        $kategori = Kategori::all();
+        $kategori = \App\Models\Kategori::all();
         return view('alat.create', compact('kategori'));
     }
 
+    // 3. Menyimpan Alat Baru ke Database
     public function store(Request $request)
     {
-        $datal = $request->validate([
-            'nama_alat' => 'required|min:3|max:100',
-            'kode_alat' => 'required|min:3|max:100',
-            'id_kategori' => 'required',
+        $data = $request->all();
+
+        Alat::create([
+            'nama_alat'   => $data['nama_alat'],
+            'kode_alat'   => $data['kode_alat'],
+            'id_kategori' => $data['id_kategori'],
+            'stok'        => $data['stok'] ?? 0
         ]);
-        Alat::create($datal);
-        return redirect(route('alat.index'))->with('success', 'Alat berhasil ditambahkan.');
+
+        // Catat log aktivitas
+        $currentUser = User::current();
+        LogAktifitas::create([
+            'id_user'   => $currentUser->id ?? null,
+            'aktifitas' => 'Admin menambahkan alat baru: ' . $data['nama_alat']
+        ]);
+
+        return redirect(route('alat.index'))->with('success', 'Data alat berhasil ditambahkan!');
     }
 
-    public function edit(Request $request, $id_alat)
+    // 4. Menampilkan Form Edit Alat
+    public function edit(Request $request, $id)
     {
-        $datal = Alat::findOrFail($id_alat);
-        $kategori = Kategori::all();
+        // Menyesuaikan parameter $id atau $alat tergantung routing kamu
+        $datal = Alat::where('id_alat', $id)->first();
+        if (!$datal) {
+            return redirect(route('alat.index'))->with('error', 'Data alat tidak ditemukan.');
+        }
+
+        $kategori = \App\Models\Kategori::all();
         return view('alat.edit', compact('datal', 'kategori'));
     }
 
-    public function update(Request $request, $id_alat)
+    // 5. Memperbarui Data Alat & Stok
+    public function update(Request $request, $id)
     {
-        $datal = $request->all();
+        $alat = Alat::where('id_alat', $id)->first();
+        if (!$alat) {
+            return redirect(route('alat.index'))->with('error', 'Data alat tidak ditemukan.');
+        }
 
-        $alat = Alat::findOrFail($id_alat);
-        $alat->update($datal);
-        return redirect(route('alat.index'))->with('success', 'Alat berhasil diubah');
+        $data = $request->all();
+
+        $alat->update([
+            'nama_alat'   => $data['nama_alat'],
+            'kode_alat'   => $data['kode_alat'],
+            'id_kategori' => $data['id_kategori'],
+            'stok'        => $data['stok'] ?? $alat->stok
+        ]);
+
+        // Catat log aktivitas
+        $currentUser = User::current();
+        LogAktifitas::create([
+            'id_user'   => $currentUser->id ?? null,
+            'aktifitas' => 'Admin memperbarui data alat ID: ' . $id
+        ]);
+
+        return redirect(route('alat.index'))->with('success', 'Data alat berhasil diperbarui!');
     }
 
-    public function delete(Request $request, $id_alat)
+    // 6. Menghapus Alat
+    public function delete(Request $request, $id)
     {
-        $alat = Alat::findOrFail($id_alat);
-        $alat->delete();
+        $alat = Alat::where('id_alat', $id)->first();
+        if ($alat) {
+            $nama = $alat->nama_alat;
+            $alat->delete();
 
-        return redirect()->route('alat.index')->with('success', 'Alat berhasil dihapus.');
+            // Catat log aktivitas
+            $currentUser = User::current();
+            LogAktifitas::create([
+                'id_user'   => $currentUser->id ?? null,
+                'aktifitas' => 'Admin menghapus alat: ' . $nama
+            ]);
+        }
+
+        return redirect(route('alat.index'))->with('success', 'Data alat berhasil dihapus!');
+    }
+
+    // Menampilkan daftar alat untuk sisi Peminjam / Siswa
+    public function daftarAlatPeminjam(Request $request)
+    {
+        // Mengambil semua data alat
+        $alat = Alat::all();
+        
+        // Mengambil data kategori untuk pemetaan nama kategori di view
+        $kategoriList = \App\Models\Kategori::all();
+        $kategoriMap = [];
+        foreach ($kategoriList as $k) {
+            $kategoriMap[$k->id_kategori] = $k->nama_kategori;
+        }
+
+        // Return ke view katalog alat peminjam yang sudah kamu buat sebelumnya
+        return view('peminjam.daftar_alat', compact('alat', 'kategoriMap'));
     }
 }

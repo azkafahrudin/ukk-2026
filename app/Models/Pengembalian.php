@@ -17,6 +17,6 @@ class Pengembalian extends Model
         'denda',
         'kondisi_barang',
         'catatan',
-        'id_alat'
+        'status'
     ];
 }

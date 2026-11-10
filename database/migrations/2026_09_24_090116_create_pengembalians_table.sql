@@ -8,8 +8,5 @@ CREATE TABLE IF NOT EXISTS `pengembalian` (
     `catatan`              TEXT NULL,
     `created_at`           DATETIME NULL,
     `updated_at`           DATETIME NULL,
-
-    CONSTRAINT `fk_pengembalian_peminjaman` 
-        FOREIGN KEY (`id_peminjaman`) REFERENCES `peminjaman` (`id_peminjaman`) 
-        ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    status ENUM('Pending', 'Disetujui', 'Ditolak', 'Dipinjam', 'Dikembalikan') DEFAULT 'Pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

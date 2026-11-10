@@ -96,7 +96,10 @@ Route::group(['prefix' => 'peminjam', 'middleware' => 'peminjam'], function () {
 Route::group(['prefix' => 'petugas', 'middleware' => 'petugas'], function () {
     Route::get('/', [DashboardController::class, 'petugas'])->name('petugas.dashboard');
     Route::get('/peminjaman', [PeminjamanController::class, 'indexPetugas'])->name('petugas.peminjaman.index');
-    Route::post('/peminjaman/{id}/setujui', [PeminjamanController::class, 'setujuiPetugas'])->name('petugas.peminjaman.setujui');
+    Route::post('/petugas/peminjaman/setuju/{id}', [PeminjamanController::class, 'setujuPeminjaman'])->name('petugas.peminjaman.setuju');
+    Route::post('/petugas/peminjaman/tolak/{id}', [PeminjamanController::class, 'tolakPeminjaman'])->name('petugas.peminjaman.tolak');
+    Route::post('/petugas/pengembalian/setuju/{id}', [PengembalianController::class, 'setujuPengembalian'])->name('petugas.pengembalian.setujui');
+    Route::post('/petugas/pengembalian/tolak/{id}', [PengembalianController::class, 'tolakPengembalian'])->name('petugas.pengembalian.tolak');
     Route::get('/pengembalian', [PengembalianController::class, 'indexPetugas'])->name('petugas.pengembalian.index');
     Route::get('/pengembalian/cetak', [PengembalianController::class, 'cetakPetugas'])->name('petugas.pengembalian.cetak');
 });

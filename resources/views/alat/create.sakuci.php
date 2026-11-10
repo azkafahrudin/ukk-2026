@@ -10,7 +10,7 @@
         <div class="col-md-8">
             <div class="mb-4">
                 <h2 class="fw-bold mb-1">Tambah Alat</h2>
-                <p class="text-muted small mb-0">Tambahkan inventaris alat baru ke dalam sistem.</p>
+                <p class="text-muted small mb-0">Tambahkan inventaris alat baru beserta jumlah stoknya ke dalam sistem.</p>
             </div>
 
             <!-- Card Pembungkus Form -->
@@ -29,7 +29,7 @@
                             <input type="text" name="kode_alat" id="kode_alat" class="form-control" value="{{ old('kode_alat') }}" placeholder="Contoh: ALT-01" required>
                         </div>
 
-                        <div class="mb-4">
+                        <div class="mb-3">
                             <label for="id_kategori" class="form-label fw-semibold">Kategori</label>
                             <select name="id_kategori" id="id_kategori" class="form-select" required>
                                 <option value="">-- Pilih Kategori --</option>
@@ -39,6 +39,13 @@
                                     </option>
                                 @endforeach
                             </select>
+                        </div>
+
+                        <!-- TAMBAHAN INPUT STOK -->
+                        <div class="mb-4">
+                            <label for="stok" class="form-label fw-semibold">Jumlah Stok Awal</label>
+                            <input type="number" name="stok" id="stok" class="form-control" value="{{ old('stok', 1) }}" min="0" placeholder="Contoh: 10" required>
+                            <div class="form-text small text-muted">Masukkan jumlah unit fisik alat yang tersedia.</div>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center">
@@ -53,5 +60,4 @@
     </div>
 
 </div>
-sajhsjsh
 @endsection

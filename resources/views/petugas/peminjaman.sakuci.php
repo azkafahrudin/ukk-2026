@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Verifikasi Peminjaman - PINVERA')
+@section('title', 'Verifikasi Peminjaman - inventarishub')
 
 @section('content')
 <div class="container-fluid px-4 px-lg-5 py-4">
@@ -35,11 +35,11 @@
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th class="py-3 px-3 rounded-start-3">No</th>
-                        <th class="py-3">ID Peminjaman</th>
-                        <th class="py-3">Nama Alat & Peminjam</th>
-                        <th class="py-3">Status</th>
-                        <th class="py-3 px-3 rounded-end-3 text-center">Aksi Petugas</th>
+                        <th class="py-3 px-3 rounded-start-3" width="5%">No</th>
+                        <th class="py-3" width="15%">ID Peminjaman</th>
+                        <th class="py-3" width="35%">Nama Alat & Peminjam</th>
+                        <th class="py-3" width="15%">Status</th>
+                        <th class="py-3 px-3 rounded-end-3 text-center" width="30%">Aksi Petugas</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,7 +52,7 @@
                                 {{ $item->data_alat->nama_alat ?? ($item->data_alat->nama ?? 'Alat ID: ' . $item->id_alat) }}
                             </div>
                             <div class="small text-body-secondary mt-0.5">
-                                {{ $item->data_user->username ?? ($item->data_user->name ?? 'User ID: ' . $item->id_user) }}
+                                {{ $item->data_user->username ?? ($item->data_user->name ?? 'User ID: ' . $item->id_user) }} (Jumlah: {{ $item->jumlah ?? 1 }})
                             </div>
                         </td>
                         <td>
@@ -60,21 +60,33 @@
                                 <span class="badge bg-warning-subtle text-warning px-3 py-2 rounded-pill fw-medium">Pending</span>
                             @elseif(strtolower($item->status) == 'disetujui')
                                 <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill fw-medium">Disetujui</span>
+                            @elseif(strtolower($item->status) == 'ditolak')
+                                <span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill fw-medium">Ditolak</span>
                             @else
                                 <span class="badge bg-secondary-subtle text-secondary px-3 py-2 rounded-pill fw-medium">{{ $item->status }}</span>
                             @endif
                         </td>
                         <td class="px-3 text-center">
-                            <!-- TOMBOL SETUJUI DENGAN URL LANGSUNG -->
                             @if(strtolower($item->status) == 'pending' || strtolower($item->status) == 'menunggu')
-                                <form action="/petugas/peminjaman/{{ $item->id_peminjaman }}/setujui" method="POST" class="d-inline">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success btn-sm rounded-pill px-4 shadow-sm fw-medium">
-                                        <i class="bi bi-check2 me-1"></i> Setujui
-                                    </button>
-                                </form>
+                                <div class="d-inline-flex gap-2">
+                                    <!-- TOMBOL SETUJUI -->
+                                    <form action="{{ route('petugas.peminjaman.setuju', ['id' => $item->id_peminjaman]) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success btn-sm rounded-pill px-3 shadow-sm fw-medium">
+                                            <i class="bi bi-check2 me-1"></i> Setuju
+                                        </button>
+                                    </form>
+
+                                    <!-- TOMBOL TOLAK -->
+                                    <form action="{{ route('petugas.peminjaman.tolak', ['id' => $item->id_peminjaman]) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm fw-medium" onclick="return confirm('Yakin ingin menolak peminjaman ini?')">
+                                            <i class="bi bi-x-lg me-1"></i> Tolak
+                                        </button>
+                                    </form>
+                                </div>
                             @else
-                                <span class="text-success small fw-semibold"><i class="bi bi-check-all me-1"></i> Telah Disetujui</span>
+                                <span class="text-body-secondary small fw-semibold">Sudah diproses ({{ $item->status }})</span>
                             @endif
                         </td>
                     </tr>

@@ -14,7 +14,7 @@
                 </div>
                 <h2 class="fw-bold mb-0 tracking-tight">Daftar Alat Inventaris</h2>
             </div>
-            <p class="text-muted small mb-0">Kelola data alat, pantau kode inventaris, dan kategorisasi dengan lengkap.</p>
+            <p class="text-muted small mb-0">Kelola data alat, pantau kode inventaris, stok, dan kategorisasi dengan lengkap.</p>
         </div>
 
         <div class="d-flex align-items-center gap-2">
@@ -103,13 +103,16 @@
                             <th class="py-3 px-3">Nama & Identitas Alat</th>
                             <th class="py-3 px-3">Kode Alat</th>
                             <th class="py-3 px-3">Kategori Inventaris</th>
-                            <th class="py-3 px-3 text-center">Status / Info</th>
+                            <th class="py-3 px-3 text-center">Stok Alat</th> <!-- Kolom Stok -->
                             <th class="py-3 px-4 text-center" style="width: 200px;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php $no = 1; @endphp
                         @forelse ($datal as $alats)
+                        @php
+                            $stok = $alats->stok ?? 0;
+                        @endphp
                         <tr>
                             <td class="px-4 text-center text-muted fw-semibold fs-7">{{ $no++ }}</td>
                             <td class="px-3">
@@ -143,9 +146,16 @@
                                 </span>
                             </td>
                             <td class="px-3 text-center">
-                                <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1.5 rounded-pill fs-8 fw-medium">
-                                    <i class="bi bi-check-circle me-1"></i> Tersedia
-                                </span>
+                                <!-- Tampilan Stok Dinamis -->
+                                @if($stok > 0)
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1.5 rounded-pill fs-8 fw-semibold">
+                                        <i class="bi bi-box-seam me-1"></i> {{ $stok }} Unit
+                                    </span>
+                                @else
+                                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2.5 py-1.5 rounded-pill fs-8 fw-semibold">
+                                        <i class="bi bi-x-circle me-1"></i> Habis (0)
+                                    </span>
+                                @endif
                             </td>
                             <td class="px-4 text-center">
                                 <div class="d-inline-flex align-items-center justify-content-center gap-2">
@@ -154,7 +164,7 @@
                                     </a>
                                     <form action="{{ route('alat.delete', ['id' => $alats->id_alat]) }}" method="POST" class="d-inline m-0">
                                         @csrf
-                                        @method('DELETE')
+                                        @method('post')
                                         <button type="submit" class="btn btn-sm btn-outline-danger fw-semibold px-3 py-1.5 rounded-3 d-inline-flex align-items-center gap-1.5 fs-7 shadow-2xs" onclick="return confirm('Apakah Anda yakin ingin menghapus alat ini?')">
                                             <i class="bi bi-trash"></i> Hapus
                                         </button>
@@ -234,5 +244,4 @@
         });
     });
 </script>
-shah
 @endsection
