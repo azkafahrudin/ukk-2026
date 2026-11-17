@@ -192,55 +192,6 @@
                             </div>
                         </div>
 
-                        <!-- Right Interactive Live Widget Preview -->
-                        <div class="col-lg-5 mt-4 mt-lg-0">
-                            <div class="bg-dark text-white p-4 rounded-4 shadow-lg border border-warning border-opacity-20 position-relative">
-                                <div class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom border-secondary">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="bg-warning rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
-                                            <i class="bi bi-cpu-fill text-dark fs-6"></i>
-                                        </div>
-                                        <span class="fw-bold fs-6">Status Sistem Lab</span>
-                                    </div>
-                                    <span class="badge bg-success text-white px-2 py-1 rounded-pill small"><i class="bi bi-circle-fill fs-6 me-1" style="font-size: 8px;"></i> Online</span>
-                                </div>
-
-                                <!-- Mini Status Items -->
-                                <div class="d-flex flex-column gap-3">
-                                    <div class="p-3 rounded-3 bg-secondary bg-opacity-20 d-flex justify-content-between align-items-center">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <i class="bi bi-laptop fs-3 text-warning"></i>
-                                            <div>
-                                                <div class="fw-bold small">Laptop & PC Unit</div>
-                                                <div class="text-muted extra-small" style="font-size: 0.75rem;">Lab Komputer 1 - 3</div>
-                                            </div>
-                                        </div>
-                                        <span class="badge badge-yellow">Tersedia</span>
-                                    </div>
-
-                                    <div class="p-3 rounded-3 bg-secondary bg-opacity-20 d-flex justify-content-between align-items-center">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <i class="bi bi-projector fs-3 text-warning"></i>
-                                            <div>
-                                                <div class="fw-bold small">Proyektor & Sound System</div>
-                                                <div class="text-muted extra-small" style="font-size: 0.75rem;">Ruang Ruang Kategori</div>
-                                            </div>
-                                        </div>
-                                        <span class="badge bg-info text-dark fw-bold">Siap Pakai</span>
-                                    </div>
-
-                                    <div class="p-3 rounded-3 bg-secondary bg-opacity-20 d-flex justify-content-between align-items-center">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <i class="bi bi-tools fs-3 text-warning"></i>
-                                            <div>
-                                                <div class="fw-bold small">Kit Perbaikan & Toolkit</div>
-                                                <div class="text-muted extra-small" style="font-size: 0.75rem;">Ruang Inventaris</div>
-                                            </div>
-                                        </div>
-                                        <span class="badge bg-warning text-dark fw-bold">Terbatas</span>
-                                    </div>
-                                </div>
-
                                 <!-- Footer Widget -->
                                 <div class="mt-4 pt-3 text-center border-top border-secondary">
                                     <small class="text-muted">Proses Pengajuan Rata-Rata: <strong class="text-warning">&lt; 10 Menit</strong></small>
