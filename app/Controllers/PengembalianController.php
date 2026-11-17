@@ -165,8 +165,8 @@ class PengembalianController extends Controller
 
         $id_user = $user->id ?? $user->id_user;
         $peminjamanAktif = Peminjaman::where('id_user', $id_user)
-                                   ->whereIn('status', ['Dipinjam', 'Disetujui', 'dipinjam', 'disetujui'])
-                                   ->get();
+                                     ->whereIn('status', ['Dipinjam', 'Disetujui', 'dipinjam', 'disetujui'])
+                                     ->get();
 
         foreach ($peminjamanAktif as $p) {
             $p->alat = Alat::where('id_alat', $p->id_alat)->first();
@@ -190,18 +190,15 @@ class PengembalianController extends Controller
         $validatedData['terlambat_hari'] = 0;
         $validatedData['denda']          = 0;
         $validatedData['kondisi_barang'] = $validatedData['kondisi_barang'] ?? 'Baik';
-        
-        // Pastikan data pengembalian baru disimpan dengan status 'Pending'
         $validatedData['status']         = 'Pending'; 
 
         Pengembalian::create($validatedData);
 
-        // UBAH DISINI: Jangan langsung ubah status peminjaman menjadi 'Dikembalikan'.
-        // Biarkan statusnya tetap 'Dipinjam' atau ubah jadi 'Menunggu Konfirmasi' sampai petugas menyetujuinya.
         $peminjaman = Peminjaman::findOrFail($validatedData['id_peminjaman']);
-       $peminjaman->update(['status' => 'Pending']);
+        $peminjaman->update(['status' => 'Pending']);
+        
         LogAktifitas::create([
-            'id_user'   => $currentUser->id,
+            'id_user'   => $currentUser->id ?? $currentUser->id_user,
             'aktifitas' => 'Peminjam ' . ($currentUser->username ?? 'Siswa') . ' mengajukan pengembalian alat (Menunggu Persetujuan).'
         ]);
 
@@ -233,9 +230,11 @@ class PengembalianController extends Controller
         }
 
         $userList = [];
+        $userObjList = [];
         foreach ($users as $u) {
             $id = $u->id ?? $u->id_user;
             $userList[$id] = $u->username ?? $u->nama ?? "User #{$id}";
+            $userObjList[$id] = $u; // Menyimpan objek lengkap untuk profil peminjam
         }
 
         $alatList = [];
@@ -244,7 +243,7 @@ class PengembalianController extends Controller
             $alatList[$id] = $a->nama_alat ?? "Alat #{$id}";
         }
 
-        return view('petugas.pantau_pengembalian', compact('datap', 'peminjamanList', 'userList', 'alatList'));
+        return view('petugas.pantau_pengembalian', compact('datap', 'peminjamanList', 'userList', 'userObjList', 'alatList'));
     }
 
     public function setujuPengembalian(Request $request, $id_pengembalian)
@@ -254,32 +253,27 @@ class PengembalianController extends Controller
             return redirect(route('login'))->with('error', 'Silakan login terlebih dahulu.');
         }
 
-        // Cari data pengembalian
         $pengembalian = Pengembalian::findOrFail($id_pengembalian);
-        
-        // Update status pengembalian menjadi 'Disetujui' atau 'Selesai'
         $pengembalian->update(['status' => 'Disetujui']);
 
-        // Ambil data peminjaman terkait untuk mengembalikan stok alat
         $peminjaman = Peminjaman::find($pengembalian->id_peminjaman);
         if ($peminjaman) {
-            // Ubah status peminjaman menjadi 'Dikembalikan'
             $peminjaman->update(['status' => 'Dikembalikan']);
 
-            // Kembalikan stok alat
             $alat = Alat::where('id_alat', $peminjaman->id_alat)->first();
             if ($alat) {
-                $alat->update(['stok' => $alat->stok + ($peminjaman->jumlah ?? 1)]);
+                $alat->update(['stok' => ($alat->stok ?? 0) + ($peminjaman->jumlah ?? 1)]);
             }
         }
 
         LogAktifitas::create([
-            'id_user'   => $currentUser->id ?? null,
+            'id_user'   => $currentUser->id ?? $currentUser->id_user ?? null,
             'aktifitas' => 'Petugas/Admin menyetujui pengembalian (ID Pengembalian: ' . $id_pengembalian . ').'
         ]);
 
         return redirect(route('petugas.pengembalian.index'))->with('success', 'Pengajuan pengembalian disetujui, status peminjaman resmi Dikembalikan dan stok bertambah.');
     }
+
     public function tolakPengembalian(Request $request, $id_pengembalian)
     {
         $currentUser = User::current();
@@ -287,21 +281,17 @@ class PengembalianController extends Controller
             return redirect(route('login'))->with('error', 'Silakan login terlebih dahulu.');
         }
 
-        // Cari data pengembalian berdasarkan ID
         $pengembalian = Pengembalian::findOrFail($id_pengembalian);
         
-        // Ambil data peminjaman terkait
         $peminjaman = Peminjaman::find($pengembalian->id_peminjaman);
         if ($peminjaman) {
-            // Kembalikan status peminjaman menjadi 'Dipinjam' karena pengembalian ditolak
             $peminjaman->update(['status' => 'Dipinjam']);
         }
 
-        // Hapus data pengajuan pengembaliannya
         $pengembalian->delete();
 
         LogAktifitas::create([
-            'id_user'   => $currentUser->id ?? null,
+            'id_user'   => $currentUser->id ?? $currentUser->id_user ?? null,
             'aktifitas' => 'Petugas/Admin menolak pengajuan pengembalian (ID Pengembalian: ' . $id_pengembalian . ').'
         ]);
 

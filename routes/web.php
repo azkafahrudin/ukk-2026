@@ -11,6 +11,7 @@ use App\Controllers\AlatController;
 use App\Controllers\PeminjamanController;
 use App\Controllers\PengembalianController;
 use App\Controllers\LogAktifitasController;
+use App\Controllers\ProfileController; // <-- Jangan lupa pastikan baris ini ada di atas jika pakai namespace
 use Sakuci\Route;
 
 Route::get('/', function () {
@@ -51,7 +52,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::put('/kategori/{id_kategori}', [KategoriController::class, 'update'])->name('kategori.update');
     Route::delete('/kategori/{id_kategori}', [KategoriController::class, 'delete'])->name('kategori.delete');
 
-    // ROUTE ALAT (Penting: Delete berada di atas Update agar URL tidak tertukar)
     Route::get('/alat', [AlatController::class, 'index'])->name('alat.index');
     Route::get('/alat/create', [AlatController::class, 'create'])->name('alat.create');
     Route::post('/alat/store', [AlatController::class, 'store'])->name('alat.store');
@@ -81,6 +81,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 // ==========================================
 Route::group(['prefix' => 'peminjam', 'middleware' => 'peminjam'], function () {
     Route::get('/', [DashboardController::class, 'peminjam'])->name('peminjam.dashboard');
+    
+    // --- ROUTE PROFILE PEMINJAM (DITAMBAHKAN DI SINI) ---
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('peminjam.profile');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('peminjam.profile.update');
+    // ---------------------------------------------------
+
     Route::get('/daftar-alat', [AlatController::class, 'daftarAlatPeminjam'])->name('peminjam.alat');
     Route::get('/peminjam', [PeminjamanController::class, 'indexPeminjam'])->name('peminjam.indexPeminjam');
     Route::get('/peminjam/ajukan', [PeminjamanController::class, 'createPeminjam'])->name('peminjam.createPeminjam');

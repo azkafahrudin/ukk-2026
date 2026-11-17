@@ -3,113 +3,139 @@
 @section('title', 'Pantau Pengembalian - inventarishub')
 
 @section('content')
-<div class="container-fluid px-4 py-4">
-    
-    <!-- Header Halaman -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+<div class="container-fluid px-4 px-lg-5 py-4">
+    <div class="d-flex align-items-center justify-content-between mb-4">
         <div>
-            <h3 class="fw-bold mb-1">Pantau Pengembalian</h3>
-            <p class="text-body-secondary mb-0">Memantau riwayat alat yang telah dikembalikan oleh siswa.</p>
+            <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-medium mb-2 border border-primary-subtle">
+                <i class="bi bi-person-badge me-1"></i> Panel Petugas
+            </span>
+            <h2 class="fw-bold text-body mb-1">Pantau Pengembalian Alat</h2>
+            <p class="text-body-secondary mb-0 small">Memantau riwayat dan pengajuan alat yang dikembalikan oleh peminjam.</p>
         </div>
-        <div class="d-flex gap-2 align-items-center">
-            <!-- Tombol Cetak Laporan (Responsif Light/Dark Mode) -->
+        <div>
             <a href="{{ route('petugas.pengembalian.cetak') }}" target="_blank" class="btn btn-outline-secondary px-3 py-2 rounded-pill fw-medium shadow-sm">
                 <i class="bi bi-printer me-1"></i> Cetak Laporan
             </a>
-            
-            <span class="badge bg-info text-dark px-3 py-2 rounded-pill fw-medium shadow-sm">
-                <i class="bi bi-person-check me-1"></i> Akses Petugas
-            </span>
         </div>
     </div>
 
-    <!-- Tabel Data Pengembalian -->
-    <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body p-4">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead>
+    <!-- Alert Sukses -->
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show rounded-4 shadow-sm" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    <!-- Alert Error -->
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show rounded-4 shadow-sm" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    <div class="card border-0 shadow-sm rounded-4 bg-body p-4 border border-opacity-10">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="py-3 px-3 rounded-start-3" width="5%">No</th>
+                        <th class="py-3" width="15%">Tgl Kembali</th>
+                        <th class="py-3" width="35%">Nama Alat & Profil Peminjam</th>
+                        <th class="py-3" width="15%">Kondisi / Status</th>
+                        <th class="py-3 px-3 rounded-end-3 text-center" width="30%">Aksi Petugas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($datap as $index => $item)
+                        @php
+                            $peminjaman = $peminjamanList[$item->id_peminjaman] ?? null;
+                            $userId = $peminjaman ? $peminjaman->id_user : null;
+                            $namaUser = $peminjaman ? ($userList[$userId] ?? 'Tidak diketahui') : 'Tidak diketahui';
+                            $namaAlat = $peminjaman ? ($alatList[$peminjaman->id_alat] ?? 'Alat dihapus') : 'Alat dihapus';
+                            $status = $item->status ?? 'Pending';
+                            $peminjamObj = $userId ? ($userObjList[$userId] ?? null) : null;
+                        @endphp
                         <tr>
-                            <th class="py-3" width="5%">#</th>
-                            <th class="py-3" width="15%">Tgl Kembali</th>
-                            <th class="py-3" width="20%">Nama Peminjam</th>
-                            <th class="py-3" width="25%">Nama Alat</th>
-                            <th class="py-3" width="15%">Kondisi</th>
-                            <th class="py-3 text-end" width="20%">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($datap as $index => $item)
-                            @php
-                                $peminjaman = $peminjamanList[$item->id_peminjaman] ?? null;
-                                $namaUser = $peminjaman ? ($userList[$peminjaman->id_user] ?? 'Tidak diketahui') : 'Tidak diketahui';
-                                $namaAlat = $peminjaman ? ($alatList[$peminjaman->id_alat] ?? 'Alat dihapus') : 'Alat dihapus';
-                                $status = $item->status ?? 'Pending';
-                            @endphp
-                            <tr>
-                                <td class="py-3 text-body-secondary">{{ $datap->firstItem() + $index }}</td>
-                                <td class="py-3">{{ date('d M Y', strtotime($item->tanggal_pengembalian)) }}</td>
-                                <td class="py-3 fw-medium text-primary">{{ $namaUser }}</td>
-                                <td class="py-3">
-                                    <i class="bi bi-box-seam text-body-secondary me-2"></i>{{ $namaAlat }}
-                                </td>
-                                <td class="py-3">
+                            <td class="px-3 text-body-secondary fw-medium">{{ $datap->firstItem() + $index }}</td>
+                            <td class="fw-semibold text-body small">
+                                <i class="bi bi-calendar-event me-1 text-secondary"></i> 
+                                {{ date('d M Y', strtotime($item->tanggal_pengembalian)) }}
+                            </td>
+                            <td>
+                                <!-- Nama Alat -->
+                                <div class="fw-semibold text-body fs-6">
+                                    <i class="bi bi-box-seam me-1 text-warning"></i> {{ $namaAlat }}
+                                </div>
+
+                                <!-- Detail Profil Peminjam -->
+                                <div class="small mt-1 p-2 rounded bg-body-tertiary border">
+                                    <div class="fw-bold text-dark">
+                                        <i class="bi bi-person-fill text-primary me-1"></i> 
+                                        {{ $peminjamObj->profile->nama_lengkap ?? $peminjamObj->username ?? $namaUser }}
+                                    </div>
+                                    <div class="text-muted mt-0.5" style="font-size: 0.78rem;">
+                                        <span><strong>NIS/ID:</strong> {{ $peminjamObj->profile->nis_nisn ?? $peminjamObj->nomor_identitas ?? '-' }}</span> | 
+                                        <span><strong>Kelas:</strong> {{ $peminjamObj->profile->kelas ?? '-' }}</span> | 
+                                        <span><strong>HP:</strong> {{ $peminjamObj->profile->no_telepon ?? $peminjamObj->telepon ?? '-' }}</span>
+                                    </div>
+                                    <div class="mt-1 text-secondary" style="font-size: 0.75rem;">
+                                        <i class="bi bi-chat-left-text me-1"></i> Catatan: {{ $item->catatan ?? 'Tidak ada catatan' }}
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mb-1">
                                     @if(strtolower($item->kondisi_barang) == 'baik')
-                                        <span class="badge bg-success bg-opacity-10 text-success px-2 py-1 rounded-3">Baik</span>
-                                    @elseif(strtolower($item->kondisi_barang) == 'ringan rusak' || strtolower($item->kondisi_barang) == 'rusak ringan')
-                                        <span class="badge bg-warning bg-opacity-10 text-warning px-2 py-1 rounded-3">Rusak Ringan</span>
+                                        <span class="badge bg-success-subtle text-success px-2 py-1 rounded-3 small">Baik</span>
+                                    @elseif(str_contains(strtolower($item->kondisi_barang), 'rusak'))
+                                        <span class="badge bg-danger-subtle text-danger px-2 py-1 rounded-3 small">{{ $item->kondisi_barang }}</span>
                                     @else
-                                        <span class="badge bg-danger bg-opacity-10 text-danger px-2 py-1 rounded-3">{{ $item->kondisi_barang ?? 'Rusak' }}</span>
+                                        <span class="badge bg-warning-subtle text-warning px-2 py-1 rounded-3 small">{{ $item->kondisi_barang }}</span>
                                     @endif
-                                </td>
-                                <td class="py-3 text-end">
+                                </div>
+                                <div>
                                     @if(strtolower($status) == 'disetujui' || strtolower($status) == 'selesai')
-                                        <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">
-                                            <i class="bi bi-check-circle me-1"></i> Disetujui
-                                        </span>
+                                        <span class="badge bg-success-subtle text-success px-3 py-1 rounded-pill small fw-medium">Disetujui</span>
                                     @elseif(strtolower($status) == 'ditolak')
-                                        <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill">
-                                            <i class="bi bi-x-circle me-1"></i> Ditolak
-                                        </span>
+                                        <span class="badge bg-danger-subtle text-danger px-3 py-1 rounded-pill small fw-medium">Ditolak</span>
                                     @else
-                                        <!-- Tombol Aksi untuk Petugas jika status masih Pending -->
-                                        <div class="d-inline-flex gap-1">
-                                            <!-- DIPERBAIKI: Menggunakan array untuk route parameter -->
-                                            <form action="{{ route('petugas.pengembalian.setujui', ['id' => $item->id_pengembalian]) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-success px-2 py-1 rounded-2 shadow-2xs" title="Setujui Pengembalian">
-                                                    <i class="bi bi-check-lg"></i> Setuju
-                                                </button>
-                                            </form>
-                                            
-                                            <!-- DIPERBAIKI: Menggunakan array untuk route parameter -->
-                                            <form action="{{ route('petugas.pengembalian.tolak', ['id' => $item->id_pengembalian]) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-danger px-2 py-1 rounded-2 shadow-2xs" title="Tolak Pengembalian" onclick="return confirm('Yakin ingin menolak pengembalian ini?')">
-                                                    <i class="bi bi-x-lg"></i> Tolak
-                                                </button>
-                                            </form>
-                                        </div>
+                                        <span class="badge bg-warning-subtle text-warning px-3 py-1 rounded-pill small fw-medium">Pending</span>
                                     @endif
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="6" class="text-center py-5 text-body-secondary">
-                                    <i class="bi bi-inbox fs-2 d-block mb-3 opacity-25"></i>
-                                    Belum ada data pengembalian alat.
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-            
-            @if($datap->hasPages())
-                <div class="d-flex justify-content-end mt-4">
-                    {{ $datap->links() }}
-                </div>
-            @endif
+                                </div>
+                            </td>
+                            <td class="px-3 text-center">
+                                @if(strtolower($status) == 'pending' || strtolower($status) == 'menunggu' || empty($status) || $status == 'Pending')
+                                    <div class="d-inline-flex gap-2">
+                                        <!-- TOMBOL SETUJUI -->
+                                        <form action="{{ route('petugas.pengembalian.setujui', ['id' => $item->id_pengembalian]) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success btn-sm rounded-pill px-3 shadow-sm fw-medium">
+                                                <i class="bi bi-check2 me-1"></i> Setuju
+                                            </button>
+                                        </form>
+
+                                        <!-- TOMBOL TOLAK -->
+                                        <form action="{{ route('petugas.pengembalian.tolak', ['id' => $item->id_pengembalian]) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm fw-medium" onclick="return confirm('Yakin ingin menolak pengembalian ini?')">
+                                                <i class="bi bi-x-lg me-1"></i> Tolak
+                                            </button>
+                                        </form>
+                                    </div>
+                                @else
+                                    <span class="text-body-secondary small fw-semibold">Sudah diproses</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-body-secondary">Belum ada data pengembalian alat.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

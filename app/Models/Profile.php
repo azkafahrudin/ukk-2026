@@ -6,14 +6,19 @@ use Sakuci\Database\Model;
 
 class Profile extends Model
 {
-    protected static ?string $table = 'profile';
-    protected string $primaryKey = 'id_profile';
-    
+    protected static ?string $table = 'profiles';
+
     protected array $fillable = [
         'id_user',
         'nama_lengkap',
-        'nomor_telepon',
+        'nis_nisn',
         'kelas',
+        'no_telepon',
         'alamat'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
+    }
 }

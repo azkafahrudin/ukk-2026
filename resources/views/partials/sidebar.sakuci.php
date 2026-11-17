@@ -203,6 +203,14 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
+                <!-- 🌟 MENU PROFIL PEMINJAM (BARU) -->
+                <li>
+                    @php $active = $isActive('/peminjam/profile'); @endphp
+                    <a href="{{ route('peminjam.profile') }}" class="sidebar-link {{ $active ? 'active' : '' }}">
+                        <i class="bi bi-person-badge-fill text-warning"></i>
+                        <span>Profil Saya</span>
+                    </a>
+                </li>
                 <li>
                     @php $active = $isActive('/peminjam/daftar-alat', '/peminjam/alat'); @endphp
                     <a href="{{ route('peminjam.alat') }}" class="sidebar-link {{ $active ? 'active' : '' }}">

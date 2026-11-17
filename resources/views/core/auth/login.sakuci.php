@@ -14,7 +14,7 @@
                 
                 <!-- Header / Logo Kecil -->
                 <div class="text-center mb-4">
-                    <div class="bg-primary-subtle text-primary rounded-circle d-inline-flex p-3 fs-3 mb-3 shadow-sm">
+                    <div class="bg-brand-subtle text-brand rounded-circle d-inline-flex p-3 fs-3 mb-3 shadow-sm">
                         <i class="bi bi-box-seam-fill"></i>
                     </div>
                     <h2 class="fw-bold text-dark fs-4 mb-1">Selamat Datang</h2>
@@ -58,7 +58,7 @@
                     </div>
 
                     <!-- Tombol Login -->
-                    <button class="btn btn-primary w-100 py-2 rounded-3 fw-semibold shadow-sm mb-3" type="submit">
+                    <button class="btn btn-brand w-100 py-2 rounded-3 fw-semibold shadow-sm mb-3" type="submit">
                         <i class="bi bi-box-arrow-in-right me-2"></i> Masuk Sekarang
                     </button>
                 </form>
@@ -76,7 +76,7 @@
                 @if ($canRegister)
                     <hr class="text-muted opacity-25 my-4">
                     <p class="text-secondary small text-center mb-0">
-                        Belum punya akun? <a href="{{ route('register') }}" class="text-primary fw-semibold text-decoration-none">Daftar di sini</a>
+                        Belum punya akun? <a href="{{ route('register') }}" class="text-brand fw-semibold text-decoration-none">Daftar di sini</a>
                     </p>
                 @endif
 

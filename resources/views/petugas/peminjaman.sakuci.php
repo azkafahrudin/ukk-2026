@@ -48,11 +48,26 @@
                         <td class="px-3 text-body-secondary fw-medium">{{ $datap->firstItem() + $index }}</td>
                         <td class="fw-semibold text-body">#{{ $item->id_peminjaman }}</td>
                         <td>
-                            <div class="fw-semibold text-body">
+                            <!-- Nama Alat -->
+                            <div class="fw-semibold text-body fs-6">
+                                <i class="bi bi-box-seam me-1 text-warning"></i> 
                                 {{ $item->data_alat->nama_alat ?? ($item->data_alat->nama ?? 'Alat ID: ' . $item->id_alat) }}
                             </div>
-                            <div class="small text-body-secondary mt-0.5">
-                                {{ $item->data_user->username ?? ($item->data_user->name ?? 'User ID: ' . $item->id_user) }} (Jumlah: {{ $item->jumlah ?? 1 }})
+
+                            <!-- Detail Peminjam (Nama Lengkap, NIS, Kelas, No HP) -->
+                            <div class="small mt-1 p-2 rounded bg-body-tertiary border">
+                                <div class="fw-bold text-dark">
+                                    <i class="bi bi-person-fill text-primary me-1"></i> 
+                                    {{ $item->data_user->profile->nama_lengkap ?? $item->data_user->username ?? 'User' }}
+                                </div>
+                                <div class="text-muted mt-0.5" style="font-size: 0.78rem;">
+                                    <span><strong>NIS:</strong> {{ $item->data_user->profile->nis_nisn ?? '-' }}</span> | 
+                                    <span><strong>Kelas:</strong> {{ $item->data_user->profile->kelas ?? '-' }}</span> | 
+                                    <span><strong>HP:</strong> {{ $item->data_user->profile->no_telepon ?? '-' }}</span>
+                                </div>
+                                <div class="mt-1 text-warning-emphasis fw-semibold" style="font-size: 0.78rem;">
+                                    <i class="bi bi-stack me-1"></i> Jumlah Dipinjam: {{ $item->jumlah ?? 1 }} Unit
+                                </div>
                             </div>
                         </td>
                         <td>

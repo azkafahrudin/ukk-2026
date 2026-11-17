@@ -37,7 +37,7 @@ class User extends Model
         return $user;
     }
 
-    // === TAMBAHKAN RELASI INI ===
+    // Relasi ke tabel Profile peminjam
     public function profile()
     {
         return $this->hasOne(Profile::class, 'id_user', 'id');
